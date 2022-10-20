@@ -10,7 +10,7 @@ namespace Poker
     {
         //Attributs
         Carte[] cartes = new Carte[2];
-        int force;
+        int Force;
 
         //Constructeur
         public MainJoueur()

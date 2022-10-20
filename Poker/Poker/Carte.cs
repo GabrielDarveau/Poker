@@ -34,25 +34,27 @@ namespace Poker
     internal class Carte
     {
         //Variables
-        Valeur MaValeur;
         Couleur MaCouleur;
-        bool visible;
+        Valeur MaValeur;
+        bool Visible;
 
         //Constructeur
-        Carte()
+        Carte(Couleur couleur, Valeur valeur)
         {
-
+            MaCouleur = couleur;
+            MaValeur = valeur;
+            Visible = false;
         }
 
         //Fonctions
-        public int  ComparerCarte()
-        {
+        //public int  ComparerCarte(Carte carteAComparer)
+        //{
 
-        }
+        //}
 
         public void Retourner()
         {
-
+            Visible = !Visible;
         }
 
 
