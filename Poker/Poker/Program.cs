@@ -15,8 +15,7 @@ namespace Poker
 
         static void Executer()
         {
-
-            Partie laPartie = new Partie();
+            Partie laPartie = new Partie(CreerJoueur());
 
         }
 
@@ -39,5 +38,7 @@ namespace Poker
             }
             return joueurs;
         }
+
+
     }
 }
