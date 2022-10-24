@@ -25,77 +25,72 @@ namespace Poker
         //Fonctions
         public void JouerTour()
         {
+            // Mettre les joueurs actifs
+            TourActuel.ResetTour();
+
+            // Brasser le paquet
+            LePaquet.Brasser();
+
+            // Distribuer les cartes aux joueurs
+            foreach (Joueur j in this.joueurs)
+            {
+                LePaquet.Distribuer(j);
+            }
+
+            // Placer cartes communes
+            LePaquet.Distribuer(TourActuel);
+
+            // reseter le tour
+            TourActuel.ResetTour();
             do
             {
-                // Mettre les joueurs actifs
-                TourActuel.ResetTour();
+                // Révéler cartes communes 
+                TourActuel.ChangerEtat();
 
-                // Brasser le paquet
-                LePaquet.Brasser();
-
-                // Distribuer les cartes aux joueurs
-                foreach (Joueur j in this.joueurs)
-                {
-                    LePaquet.Distribuer(j);
-                }
-
-                // Placer cartes communes
-                LePaquet.Distribuer(TourActuel);
-
-                // reseter le tour
-                TourActuel.ResetTour();
                 do
                 {
-                    // Révéler cartes communes 
-                    TourActuel.ChangerEtat();
-
-                    do
+                    foreach (Joueur j in this.joueurs)
                     {
-                        foreach (Joueur j in this.joueurs)
+                        if (j.Actif)
                         {
-                            if (j.Actif)
-                            {
-                                // Afficher les cartes communes, les mises et l'argent restant des joueurs
-                                AfficherJeu();
+                            // Afficher les cartes communes, les mises et l'argent restant des joueurs
+                            AfficherJeu();
 
-                                // Afficher les cartes du joueurs
+                            // Afficher les cartes du joueur
+                            j.AfficherMain();
 
+                            // Prendre mise
+                            j.GetMise();
 
-                                // Prendre mise
-                                j.GetMise();
-
-                            }
                         }
-
-
-                    } while (TourActuel.JoueursActifs(this.joueurs) && TourActuel.FinMises(this.joueurs)); // Les joueurs misent encore
-
-                } while (TourActuel.EtatTour < 5 && TourActuel.JoueursActifs(this.joueurs)); // Toutes les cartes ne sont pas révélés ou deux personnes misent encore
-
-                // Montrer les cartes
-                AfficherJeu();
-
-                foreach (Joueur j in this.joueurs)
-                {
-                    // Afficher la main du joueur
-                }
-
-                List<Joueur> joueurs = new List<Joueur>();
-
-                foreach (Joueur j in joueurs)
-                {
-                    if (j.Actif)
-                    {
-                        joueurs.Add(j);
                     }
+
+
+                } while (TourActuel.JoueursActifs(this.joueurs) && TourActuel.FinMises(this.joueurs)); // Les joueurs misent encore
+
+            } while (TourActuel.EtatTour < 5 && TourActuel.JoueursActifs(this.joueurs)); // Toutes les cartes ne sont pas révélés ou deux personnes misent encore
+
+            // Montrer les cartes
+            AfficherJeu();
+
+            foreach (Joueur j in this.joueurs)
+            {
+                // Afficher la main du joueur
+            }
+
+            List<Joueur> joueurs = new List<Joueur>();
+
+            foreach (Joueur j in joueurs)
+            {
+                if (j.Actif)
+                {
+                    joueurs.Add(j);
                 }
+            }
 
-                // Déterminer le gagnant
-                UpdateGagnant(GetGagnant(joueurs));
+            // Déterminer le gagnant
+            UpdateGagnant(GetGagnant(joueurs));
 
-            } while (true); // Tous les joueurs veulent continuer
-
-            // Partie terminée afficher résultats
         }
 
         public Joueur GetGagnant(List<Joueur> joueurs)

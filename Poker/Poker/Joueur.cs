@@ -57,9 +57,14 @@ namespace Poker
 
         }
 
-        public void GetMise()
+        public void GetAction()
         {
+            
+        }
 
+        public void AfficherMain()
+        {
+            Console.WriteLine("Cartes de "+ Pseudo + ": "+ MaMain.cartes[0].AfficherCarte()+" et "+ MaMain.cartes[1].AfficherCarte());
         }
     }
 }

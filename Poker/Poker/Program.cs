@@ -18,7 +18,12 @@ namespace Poker
         {
             Partie laPartie = new Partie(CreerJoueur());
 
-            
+            do
+            {
+                laPartie.JouerTour();
+            } while (true); // Tous les joueurs veulent continuer
+
+            // Partie terminée afficher résultats
 
         }
 

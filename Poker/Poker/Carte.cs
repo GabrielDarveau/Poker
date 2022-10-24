@@ -57,6 +57,11 @@ namespace Poker
             Visible = !Visible;
         }
 
+        public string AfficherCarte()
+        {
+            return (MaValeur+" de "+MaCouleur);
+        }
+
 
     }
 }
