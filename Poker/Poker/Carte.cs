@@ -39,7 +39,7 @@ namespace Poker
         public bool Visible { get; set; }
 
         //Constructeur
-        Carte(Couleur couleur, Valeur valeur)
+        public Carte(Couleur couleur, Valeur valeur)
         {
             MaCouleur = couleur;
             MaValeur = valeur;
