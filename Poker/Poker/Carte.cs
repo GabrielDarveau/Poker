@@ -36,7 +36,7 @@ namespace Poker
         //Variables
         Couleur MaCouleur;
         Valeur MaValeur;
-        bool Visible;
+        public bool Visible { get; set; }
 
         //Constructeur
         public Carte(Couleur couleur, Valeur valeur)
