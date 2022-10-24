@@ -14,7 +14,14 @@ namespace Poker
         //Constructeur
         public Paquet()
         {
-
+            int index = 0;
+            for(int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 13; j++)
+                {
+                    cartes[index] = new Carte((Couleur)i, (Valeur)j);
+                }
+            }
         }
 
         //Fonctions

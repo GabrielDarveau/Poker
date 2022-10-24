@@ -10,10 +10,10 @@ namespace Poker
     {
         //Attributs
         Joueur[] joueurs = new Joueur[4];
-        int indiceJoueurCourrant;
-        Paquet lePaquet;
-        Tour tourActuel;
-        int etatTour;
+        int IndiceJoueurCourrant { get; set; }
+        Paquet LePaquet { get; set; }
+        Tour TourActuel { get; set; }
+        int EtatTour { get; set; }
 
         //Constructeur
         public Partie()
@@ -36,7 +36,7 @@ namespace Poker
         {
 
         }
-
+        //Récupérer l'argent, sert à donner l'argent au gagnant
         public void UpdateGagnant(Joueur j)
         {
 
@@ -51,7 +51,7 @@ namespace Poker
         {
 
         }
-
+        //Modifie le tour pour dire si nous sommes rendu à l'étape distribuer les cartes, de retourner les cartes, de déterminer qui est le gagnant
         public void UpdateEtatTour()
         {
 
