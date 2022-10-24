@@ -27,7 +27,7 @@
     <entity-ids>
       <counter>
         <item-type type-id="group" type="Group" />
-        <value>936</value>
+        <value>928</value>
       </counter>
       <counter>
         <item-type type-id="initial-node" type="Initial Node" />
@@ -64,7 +64,7 @@
   </counters>
   <alias-groups />
   <management uid="md-8d77040858a849a99562e08d24ec4093" name="" task-id-sequence="0">
-    <working-schedule uid="ws-51ec750feaa748658d5ada2eae288412" hours="8" monday="8" tuesday="8" wednesday="8" thursday="8" friday="8" saturday="0" sunday="0" />
+    <working-schedule uid="ws-603e7c4fd7284077bb62a57a159e9488" hours="8" monday="8" tuesday="8" wednesday="8" thursday="8" friday="8" saturday="0" sunday="0" />
     <persons>
       <person id="">
         <first-name>Raphael</first-name>
@@ -74,7 +74,7 @@
         <phone-number />
         <description />
         <color>#00000000</color>
-        <working-schedule uid="ws-bfdb3f917a304024beb82063c461ce29" hours="8" monday="8" tuesday="8" wednesday="8" thursday="8" friday="8" saturday="0" sunday="0" />
+        <working-schedule uid="ws-a911f333aa66428fa36a34c9dc104d5d" hours="8" monday="8" tuesday="8" wednesday="8" thursday="8" friday="8" saturday="0" sunday="0" />
       </person>
       <person id="">
         <first-name>Raphael</first-name>

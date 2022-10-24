@@ -9,10 +9,10 @@ namespace Poker
     internal class Partie
     {
         //Attributs
-        Joueur[] joueurs = new Joueur[4];
+        public Joueur[] joueurs { get;  private set; } = new Joueur[4];
         int IndiceJoueurCourrant { get; set; }
-        Paquet LePaquet { get; set; }
-        Tour TourActuel { get; set; }
+        public Paquet LePaquet { get; private set; }
+        public Tour TourActuel { get; private set; }
         int EtatTour { get; set; }
 
         //Constructeur

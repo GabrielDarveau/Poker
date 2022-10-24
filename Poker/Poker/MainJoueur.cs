@@ -9,7 +9,7 @@ namespace Poker
     internal class MainJoueur
     {
         //Attributs
-        Carte[] cartes = new Carte[2];
+        public Carte[] cartes { get; set; } = new Carte[2];
         int Force;
 
         //Constructeur

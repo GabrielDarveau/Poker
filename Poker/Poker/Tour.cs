@@ -9,7 +9,7 @@ namespace Poker
     internal class Tour
     {
         //Attributs
-        Carte[] carteCommunes = new Carte[5];
+        public Carte[] carteCommunes { get; set; } = new Carte[5];
         int EtatTour;
         static public int Pot{ get; set; }
 

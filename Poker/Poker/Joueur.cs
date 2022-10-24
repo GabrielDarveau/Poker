@@ -14,8 +14,8 @@ namespace Poker
         string Nom;
         string Pseudo;
         int Argent;
-        bool Actif;
-        MainJoueur MaMain;
+        public bool Actif { get; set; }
+        public MainJoueur MaMain { get; private set; }
 
         //Constructeur
         public Joueur(string monNom, string monPseudo)
