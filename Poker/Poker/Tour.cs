@@ -10,7 +10,8 @@ namespace Poker
     {
         //Attributs
         Carte[] carteCommunes = new Carte[5];
-        int etatTour;
+        int EtatTour;
+        static public int Pot{ get; set; }
 
         //Constructeur
         public Tour()
