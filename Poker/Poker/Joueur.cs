@@ -14,6 +14,7 @@ namespace Poker
         string Nom;
         string Pseudo;
         int Argent;
+        public int mise { get; set; }
         public bool Actif { get; set; }
         public MainJoueur MaMain { get; private set; }
 
@@ -23,7 +24,6 @@ namespace Poker
             Nom = monNom;
             Pseudo = monPseudo;
             Argent = 100;
-            Actif = false;
         }
 
         public void Miser(int montant)
@@ -32,7 +32,7 @@ namespace Poker
             Tour.Pot = Tour.Pot + montant;
         }
 
-        public void Check(int derniereMise)
+        public void Check()
         {
             
         }
@@ -44,7 +44,7 @@ namespace Poker
 
         public void Coucher()
         {
-
+            Actif = false;
         }
 
         public void Raise(int montant)
@@ -53,6 +53,11 @@ namespace Poker
         }
 
         public void ResetMain()
+        {
+
+        }
+
+        public void GetMise()
         {
 
         }

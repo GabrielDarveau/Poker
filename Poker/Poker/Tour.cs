@@ -30,13 +30,13 @@ namespace Poker
 
         }
 
-        public bool JoueursActifs(Partie laPartie)
+        public bool JoueursActifs(Joueur[] joueurs)
         {
             bool sontActifs = true;
             int nbJoueursA = 0;
 
 
-            foreach (Joueur j in laPartie.joueurs)
+            foreach (Joueur j in joueurs)
             {
                 if (j.Actif)
                 {
@@ -47,9 +47,25 @@ namespace Poker
             return nbJoueursA > 1;
         }
 
-        public bool FinMises()
+        public bool FinMises(Joueur[] joueurs)
         {
-            bool fin = 
+            bool fin = true;
+            int premiereMiseA = 0;
+
+            for (int i = 0; i < 4; i++)
+            {
+                if (i == 0)
+                {
+                    premiereMiseA = joueurs[i].mise;
+                }
+
+                if (joueurs[i].mise != premiereMiseA && joueurs[i].Actif)
+                {
+                    return false;
+                }
+            }
+
+            return fin;
         }
     }
 }

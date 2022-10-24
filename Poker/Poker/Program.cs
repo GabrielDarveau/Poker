@@ -18,51 +18,7 @@ namespace Poker
         {
             Partie laPartie = new Partie(CreerJoueur());
 
-            do
-            {
-                // Mettre les joueurs actifs
-                laPartie.TourActuel.ResetTour();
-
-                // Brasser le paquet
-                laPartie.LePaquet.Brasser();
-
-                // Distribuer les cartes aux joueurs
-                foreach (Joueur j in laPartie.joueurs)
-                {
-                    laPartie.LePaquet.Distribuer(j);
-                }
-
-                // Placer cartes communes
-                laPartie.LePaquet.Distribuer(laPartie.TourActuel);
-
-                // reseter le tour
-                laPartie.TourActuel.ResetTour();
-                do
-                {
-                    // Révéler cartes communes 
-                    laPartie.TourActuel.ChangerEtat();
-
-                    do
-                    {
-                        // Afficher les cartes communes
-                        laPartie.AfficherJeu();
-
-                        // Prendre mise
-
-
-                    } while (laPartie.TourActuel.JoueursActifs(laPartie) && ); // Les joueurs misent encore
-
-                } while (laPartie.TourActuel.EtatTour < 5 && laPartie.TourActuel.JoueursActifs(laPartie)); // Toutes les cartes ne sont pas révélés ou deux personnes misent encore
-
-                // Montrer les cartes
-
-                // Déterminer le gagnant
-
-                // Donner argent au gagnant
-
-            } while (true); // Tous les joueurs veulent continuer
-
-            // Partie terminée afficher résultats
+            
 
         }
 
