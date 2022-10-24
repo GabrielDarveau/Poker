@@ -15,11 +15,12 @@ namespace Poker
         public Paquet()
         {
             int index = 0;
-            for(int i = 0; i < 4; i++)
+            for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 13; j++)
                 {
                     cartes[index] = new Carte((Couleur)i, (Valeur)j);
+                    index++;
                 }
             }
         }
@@ -27,7 +28,7 @@ namespace Poker
         //Fonctions
         public void Distribuer(Joueur j)
         {
-
+            j.MaMain.cartes[];
         }
 
         public void Distribuer(Tour t)
@@ -37,7 +38,16 @@ namespace Poker
 
         public void Reinitialiser()
         {
-
+            cartes = new Carte[52];
+            int index = 0;
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 13; j++)
+                {
+                    cartes[index] = new Carte((Couleur)i, (Valeur)j);
+                    index++;
+                }
+            }
         }
 
         public void Brasser()
@@ -47,7 +57,9 @@ namespace Poker
 
         public Carte GetTopCarte()
         {
-
+            Carte laCarte = cartes[0];
+            cartes = cartes.Skip(1).ToArray();
+            return laCarte;
         }
     }
 }

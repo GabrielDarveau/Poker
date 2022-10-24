@@ -18,7 +18,11 @@ namespace Poker
         //Constructeur
         public Partie()
         {
-
+            for (int i = 0; i < joueurs.Length; i++)
+            {
+                joueurs[i] = lesJoueurs[i];
+            }
+            LePaquet = new Paquet();
         }
 
         //Fonctions
