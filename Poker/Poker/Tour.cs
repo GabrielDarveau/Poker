@@ -10,7 +10,7 @@ namespace Poker
     {
         //Attributs
         public Carte[] carteCommunes { get; set; } = new Carte[5];
-        int EtatTour;
+        public int EtatTour { get; private set; }
         static public int Pot{ get; set; }
 
         //Constructeur
@@ -28,6 +28,28 @@ namespace Poker
         public void ResetTour()
         {
 
+        }
+
+        public bool JoueursActifs(Partie laPartie)
+        {
+            bool sontActifs = true;
+            int nbJoueursA = 0;
+
+
+            foreach (Joueur j in laPartie.joueurs)
+            {
+                if (j.Actif)
+                {
+                    nbJoueursA++;
+                }
+            }
+
+            return nbJoueursA > 1;
+        }
+
+        public bool FinMises()
+        {
+            bool fin = 
         }
     }
 }

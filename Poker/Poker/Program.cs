@@ -35,9 +35,13 @@ namespace Poker
                 // Placer cartes communes
                 laPartie.LePaquet.Distribuer(laPartie.TourActuel);
 
-
+                // reseter le tour
+                laPartie.TourActuel.ResetTour();
                 do
                 {
+                    // Révéler cartes communes 
+                    laPartie.TourActuel.ChangerEtat();
+
                     do
                     {
                         // Afficher les cartes communes
@@ -46,11 +50,9 @@ namespace Poker
                         // Prendre mise
 
 
-                    } while (true); // Les joueurs misent encore
+                    } while (laPartie.TourActuel.JoueursActifs(laPartie) && ); // Les joueurs misent encore
 
-                    // Révéler cartes
-
-                } while (!t.); // Toutes les cartes ne sont pas révélés ou deux personnes misent encore
+                } while (laPartie.TourActuel.EtatTour < 5 && laPartie.TourActuel.JoueursActifs(laPartie)); // Toutes les cartes ne sont pas révélés ou deux personnes misent encore
 
                 // Montrer les cartes
 
