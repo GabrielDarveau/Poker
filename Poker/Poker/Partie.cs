@@ -12,7 +12,7 @@ namespace Poker
         public Joueur[] joueurs { get;  private set; } = new Joueur[4];
         int IndiceJoueurCourrant { get; set; }
         public Paquet LePaquet { get; private set; }
-        public Tour TourActuel { get; private set; }
+        public Tour TourActuel { get; private set; } = new Tour();
         int EtatTour { get; set; }
 
         //Constructeur
