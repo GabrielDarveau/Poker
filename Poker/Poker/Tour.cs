@@ -13,6 +13,10 @@ namespace Poker
         public int EtatTour { get; private set; }
         static public int Pot{ get; set; }
 
+        static public int SidePot { get; set; }
+
+        static public int derniereMise; 
+
         //Constructeur
         public Tour()
         {

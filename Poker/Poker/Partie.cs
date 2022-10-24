@@ -60,7 +60,7 @@ namespace Poker
                             j.AfficherMain();
 
                             // Prendre mise
-                            j.GetMise();
+                            j.ChoisirAction();
 
                         }
                     }
