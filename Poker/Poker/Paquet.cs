@@ -28,16 +28,24 @@ namespace Poker
         //Fonctions
         public void Distribuer(Joueur j)
         {
-            j.MaMain.cartes[];
+            j.MaMain.cartes[0] = GetTopCarte();
+            j.MaMain.cartes[1] = GetTopCarte();
         }
 
         public void Distribuer(Tour t)
         {
-
+            /*  Pour toutes les cartes communes
+             *      Obtenir la carte du dessus
+             */
+            for(int i = 0; i < 5; i++)
+            {
+                t.carteCommunes[i] = GetTopCarte();
+            }
         }
 
         public void Reinitialiser()
         {
+            //Instancier un nouveau paquet de 52 cartes
             cartes = new Carte[52];
             int index = 0;
             for (int i = 0; i < 4; i++)
@@ -52,7 +60,20 @@ namespace Poker
 
         public void Brasser()
         {
-
+            //Variable aléatoire pour obtenir carte aléatoire
+            //Pour toute la longueur du paquet
+            //  Obtenir un chiffre aléatoire disponible
+            //  Stocker une carte dans une variable temporaire
+            //  Changer la carte pour la carte obtenue aléatoirement
+            //  Mettre l'ancienne carte à la place de la carte obtenue aléatoirement
+            Random random = new Random();
+            for (int i = 0; i < cartes.Length; i++)
+            {
+                int j = random.Next(i, cartes.Length); 
+                var temp = cartes[i];
+                cartes[i] = cartes[j];
+                cartes[j] = temp;
+            }
         }
 
         public Carte GetTopCarte()
