@@ -100,7 +100,18 @@ namespace Poker
 
         public void AfficherJeu()
         {
-
+            Console.Clear();
+            Console.WriteLine("*** État de la partie ***");
+            Console.WriteLine("\nCarte visible \t Carte visible \t Carte visible \t Carte non visible \t Carte non visible");
+            Console.WriteLine("Les mises actuelles:");
+            for(int i = 0; i < 4; i++)
+            {
+                Console.WriteLine("Mise joueur {0}: {1:C}", i, joueurs[i].MaMise);
+            }
+            for (int i = 0; i < 4; i++)
+            {
+                Console.WriteLine("Argent restant du joueur {0}: {1:C}", i, joueurs[i].Argent);
+            }
         }
         //Récupérer l'argent, sert à donner l'argent au gagnant
         public void UpdateGagnant(Joueur j)
@@ -113,10 +124,10 @@ namespace Poker
 
         }
 
-        public void AfficherCarte(Tour leTour)
-        {
+        //public void AfficherCarte(Tour leTour)
+        //{
 
-        }
+        //}
         //Modifie le tour pour dire si nous sommes rendu à l'étape distribuer les cartes, de retourner les cartes, de déterminer qui est le gagnant
         public void UpdateEtatTour()
         {

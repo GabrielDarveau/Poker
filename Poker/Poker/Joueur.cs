@@ -16,7 +16,7 @@ namespace Poker
         int Argent;
         public int MaMise { get; set; }
         public bool Actif { get; set; }
-        public MainJoueur MaMain { get; private set; }
+        public MainJoueur MaMain { get; private set; } = new MainJoueur();
         public bool AllIn { get; private set; } = false;
 
         //Constructeur

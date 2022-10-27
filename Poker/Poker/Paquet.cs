@@ -78,6 +78,10 @@ namespace Poker
 
         public Carte GetTopCarte()
         {
+            /* Obtenir la carte à l'index 0
+             * Retirer cette carte du paquet
+             * retourner la carte
+             */
             Carte laCarte = cartes[0];
             cartes = cartes.Skip(1).ToArray();
             return laCarte;
