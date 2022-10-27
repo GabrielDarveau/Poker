@@ -12,9 +12,7 @@ namespace Poker
         public Carte[] carteCommunes { get; set; } = new Carte[5];
         public int EtatTour { get; private set; }
         static public int Pot{ get; set; }
-
         static public int SidePot { get; set; }
-
         static public int derniereMise; 
 
         //Constructeur
@@ -26,11 +24,25 @@ namespace Poker
         //Fonctions
         public void ChangerEtat()
         {
-
+            EtatTour++;
         }
 
-        public void ResetTour()
+        public void ResetTour(Partie laPartie)
         {
+            laPartie.joueurs[0].Actif = true;
+            laPartie.joueurs[1].Actif = true;
+            laPartie.joueurs[2].Actif = true;
+            laPartie.joueurs[3].Actif = true;
+            EtatTour = 0;
+
+            carteCommunes[0].Visible = false;
+            carteCommunes[1].Visible = false;
+            carteCommunes[2].Visible = false;
+            carteCommunes[3].Visible = false;
+            carteCommunes[4].Visible = false;
+
+            derniereMise = 0;
+            SidePot = 0;
 
         }
 
@@ -60,10 +72,10 @@ namespace Poker
             {
                 if (i == 0)
                 {
-                    premiereMiseA = joueurs[i].mise;
+                    premiereMiseA = joueurs[i].MaMise;
                 }
 
-                if (joueurs[i].mise != premiereMiseA && joueurs[i].Actif)
+                if (joueurs[i].MaMise != premiereMiseA && joueurs[i].Actif)
                 {
                     return false;
                 }

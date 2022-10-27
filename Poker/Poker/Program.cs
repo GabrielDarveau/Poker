@@ -21,7 +21,7 @@ namespace Poker
             do
             {
                 laPartie.JouerTour();
-            } while (true); // Tous les joueurs veulent continuer
+            } while (laPartie.FinPartie()); // Tous les joueurs veulent continuer
 
             // Partie terminée afficher résultats
 
@@ -35,10 +35,10 @@ namespace Poker
             {
                 do
                 {
-                    Console.Write("Entrer le nom du joueur "+i);
+                    Console.Write("Entrer le nom du joueur "+(i + 1)+": ");
                     nom = Console.ReadLine();
 
-                    Console.Write("Entrer le pseudo du joueur " + i);
+                    Console.Write("Entrer le pseudo du joueur " + (i + 1) + ": ");
                     pseudo = Console.ReadLine();
 
                 } while (string.IsNullOrEmpty(nom) || string.IsNullOrEmpty(pseudo));
