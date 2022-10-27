@@ -52,11 +52,6 @@ namespace Poker
 
         //}
 
-        public void Retourner()
-        {
-            Visible = !Visible;
-        }
-
         public string AfficherCarte()
         {
             return (MaValeur+" de "+MaCouleur);

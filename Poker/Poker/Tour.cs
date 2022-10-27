@@ -13,8 +13,9 @@ namespace Poker
         public int EtatTour { get; private set; }
         static public int Pot{ get; set; }
         static public int SidePot { get; set; }
-        static public int derniereMise; 
-
+        static public int derniereMise;
+        public int smallBlind { get; private set; } = 0;
+        public int bigBlind { get; private set; } = 1;
         //Constructeur
         public Tour()
         {
@@ -29,21 +30,38 @@ namespace Poker
 
         public void ResetTour(Partie laPartie)
         {
-            laPartie.joueurs[0].Actif = true;
-            laPartie.joueurs[1].Actif = true;
-            laPartie.joueurs[2].Actif = true;
-            laPartie.joueurs[3].Actif = true;
+            for (int i = 0; i < 4; i++)
+            {
+                laPartie.joueurs[i].Actif = true;
+            }
+
             EtatTour = 0;
 
-            carteCommunes[0].Visible = false;
-            carteCommunes[1].Visible = false;
-            carteCommunes[2].Visible = false;
-            carteCommunes[3].Visible = false;
-            carteCommunes[4].Visible = false;
+            for (int i = 0; i < 5; i++)
+            {
+                carteCommunes[i].Visible = false;
+            }
 
             derniereMise = 0;
             SidePot = 0;
 
+            if (bigBlind == 3)
+            {
+                bigBlind = 0;
+            }
+            else
+            {
+                bigBlind++;
+            }
+
+            if (smallBlind == 3)
+            {
+                smallBlind = 0;
+            }
+            else
+            {
+                smallBlind++;
+            }
         }
 
         public bool JoueursActifs(Joueur[] joueurs)

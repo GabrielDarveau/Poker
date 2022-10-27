@@ -28,6 +28,14 @@ namespace Poker
             // Brasser le paquet
             LePaquet.Brasser();
 
+            for (int i = 0; i < joueurs.Length; i++)
+            {
+                joueurs[i].ResetJoueur();
+            }
+
+            joueurs[TourActuel.smallBlind].Blind(2);
+            joueurs[TourActuel.bigBlind].Blind(4);
+
             // Distribuer les cartes aux joueurs
             foreach (Joueur j in this.joueurs)
             {
@@ -45,9 +53,10 @@ namespace Poker
                 // Révéler les cartes communes
                 if (TourActuel.EtatTour == 1)
                 {
-                    TourActuel.carteCommunes[0].Visible = true;
-                    TourActuel.carteCommunes[1].Visible = true;
-                    TourActuel.carteCommunes[2].Visible = true;
+                    for (int i = 0; i < 3; i++)
+                    {
+                        TourActuel.carteCommunes[i].Visible = true;
+                    }
                 }
 
                 if (TourActuel.EtatTour == 2)

@@ -69,17 +69,12 @@ namespace Poker
 
                 } while (!verif || montant < Tour.derniereMise || montant > Argent);
 
-                Tour.derniereMise = montant;
-                MaMise = montant;
+                MaMise = MaMise + montant;
+                Tour.derniereMise = MaMise;
                 Argent = Argent - montant;
                 Tour.Pot = Tour.Pot + montant;
                 AllIn = Argent == 0;
             }
-        }
-
-        public void ResetMain()
-        {
-
         }
 
         public void ChoisirAction()
@@ -124,6 +119,31 @@ namespace Poker
         public void AfficherMain()
         {
             Console.WriteLine("Cartes de " + Pseudo + ": " + MaMain.cartes[0].AfficherCarte() + " et " + MaMain.cartes[1].AfficherCarte());
+        }
+
+        public void Blind(int blind)
+        {
+            if (Argent < blind)
+            {
+                Tour.Pot = Tour.Pot + Argent;
+                Tour.SidePot = Argent;
+                MaMise = Argent;
+                Argent = 0;
+                AllIn = true;
+            }
+            else
+            {
+                MaMise = blind;
+                Argent = Argent - blind;
+                Tour.Pot = Tour.Pot + blind;
+                Tour.derniereMise = MaMise;
+            }
+        }
+
+        public void ResetJoueur()
+        {
+            MaMise = 0;
+            AllIn = false;
         }
     }
 }
