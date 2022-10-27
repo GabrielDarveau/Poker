@@ -18,10 +18,10 @@ namespace Poker
 
         }
 
-        public int Comparer(MainJoueur mainAComparer)
-        {
+        //public int Comparer(MainJoueur mainAComparer)
+        //{
 
-        }
+        //}
 
         public void CalculerForce()
         {

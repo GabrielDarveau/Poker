@@ -11,12 +11,12 @@ namespace Poker
     internal class Joueur
     {
         // Attributs
-        string Nom;
+        string Nom; 
         string Pseudo;
-        int Argent;
+        public int Argent { get; private set; }
         public int MaMise { get; set; }
         public bool Actif { get; set; }
-        public MainJoueur MaMain { get; private set; }
+        public MainJoueur MaMain { get; private set; } = new MainJoueur();
         public bool AllIn { get; private set; } = false;
 
         //Constructeur

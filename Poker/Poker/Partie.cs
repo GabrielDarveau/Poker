@@ -25,9 +25,6 @@ namespace Poker
         //Fonctions
         public void JouerTour()
         {
-            // Mettre les joueurs actifs
-            TourActuel.ResetTour();
-
             // Brasser le paquet
             LePaquet.Brasser();
 
@@ -41,10 +38,28 @@ namespace Poker
             LePaquet.Distribuer(TourActuel);
 
             // reseter le tour
-            TourActuel.ResetTour();
+            TourActuel.ResetTour(this);
+
             do
             {
-                // Révéler cartes communes 
+                // Révéler les cartes communes
+                if (TourActuel.EtatTour == 1)
+                {
+                    TourActuel.carteCommunes[0].Visible = true;
+                    TourActuel.carteCommunes[1].Visible = true;
+                    TourActuel.carteCommunes[2].Visible = true;
+                }
+
+                if (TourActuel.EtatTour == 2)
+                {
+                    TourActuel.carteCommunes[3].Visible = true;
+                }
+
+                if (TourActuel.EtatTour == 3)
+                {
+                    TourActuel.carteCommunes[4].Visible = true;
+                }
+
                 TourActuel.ChangerEtat();
 
                 do
@@ -68,34 +83,36 @@ namespace Poker
 
                 } while (TourActuel.JoueursActifs(this.joueurs) && TourActuel.FinMises(this.joueurs)); // Les joueurs misent encore
 
-            } while (TourActuel.EtatTour < 5 && TourActuel.JoueursActifs(this.joueurs)); // Toutes les cartes ne sont pas révélés ou deux personnes misent encore
+            } while (TourActuel.EtatTour < 4 && TourActuel.JoueursActifs(this.joueurs)); // Toutes les cartes ne sont pas révélés ou deux personnes misent encore
 
             // Montrer les cartes
             AfficherJeu();
 
             foreach (Joueur j in this.joueurs)
             {
-                // Afficher la main du joueur
+                j.AfficherMain();
+                Console.WriteLine();
             }
 
-            List<Joueur> joueurs = new List<Joueur>();
+            List<Joueur> joueursActifs = new List<Joueur>();
 
-            foreach (Joueur j in joueurs)
+            foreach (Joueur j in joueursActifs)
             {
                 if (j.Actif)
                 {
-                    joueurs.Add(j);
+                    joueursActifs.Add(j);
                 }
             }
 
             // Déterminer le gagnant
-            UpdateGagnant(GetGagnant(joueurs));
+            UpdateGagnant(GetGagnant(joueursActifs));
 
         }
 
-        public Joueur GetGagnant(List<Joueur> joueurs)
+        public Joueur GetGagnant(List<Joueur> joueursActifs)
         {
-
+            Random rnd = new Random();
+            return joueursActifs[rnd.Next(joueursActifs.Count)];
         }
 
         public void AfficherJeu()
