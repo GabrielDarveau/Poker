@@ -47,6 +47,7 @@ namespace Poker
             // reseter le tour
             TourActuel.ResetTour(this);
 
+            int depart = TourActuel.bigBlind;
             do
             {
                 // Révéler les cartes communes
@@ -72,29 +73,21 @@ namespace Poker
 
                 do
                 {
-                    for (int i = 0; i < joueurs.Length; i++)
+                    for (int i = depart; i < joueurs.Length; i++)
                     {
-                        //les blinds ne misent pas pour commencer
-                        if (!(TourActuel.debut && ((i+1) == TourActuel.smallBlind || (i+1) == TourActuel.bigBlind)))
+                        if (joueurs[i].Actif && !TourActuel.FinMises(this.joueurs))
                         {
-                            if (joueurs[i].Actif && !TourActuel.FinMises(this.joueurs))
-                            {
-                                // Afficher les cartes communes, les mises et l'argent restant des joueurs
-                                AfficherJeu();
+                            // Afficher les cartes communes, les mises et l'argent restant des joueurs
+                            AfficherJeu();
 
-                                // Afficher les cartes du joueur
-                                joueurs[i].AfficherMain();
+                            // Afficher les cartes du joueur
+                            joueurs[i].AfficherMain();
 
-                                // Prendre mise
-                                joueurs[i].ChoisirAction();
-                            }
-                        }
-
-                        if(i > 1)
-                        {
-                            TourActuel.debut = false;
+                            // Prendre mise
+                            joueurs[i].ChoisirAction();
                         }
                     }
+                    depart = 0;
 
                 } while (TourActuel.JoueursActifs(this.joueurs) && !TourActuel.FinMises(this.joueurs)); // Les joueurs misent encore
 

@@ -67,7 +67,7 @@ namespace Poker
                     Console.WriteLine("Entrer le montant à relancer");
                     verif = int.TryParse(Console.ReadLine() , out montant);
 
-                } while (!verif || montant < Tour.derniereMise || montant > Argent);
+                } while (!verif || montant+MaMise < Tour.derniereMise || montant > Argent);
 
                 MaMise = MaMise + montant;
                 Tour.derniereMise = MaMise;
