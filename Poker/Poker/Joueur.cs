@@ -12,8 +12,8 @@ namespace Poker
     {
         // Attributs
         string Nom; 
-        string Pseudo;
-        public int Argent { get; private set; }
+        public string Pseudo { get; private set; }
+        public int Argent { get; set; }
         public int MaMise { get; set; }
         public bool Actif { get; set; }
         public MainJoueur MaMain { get; private set; } = new MainJoueur();

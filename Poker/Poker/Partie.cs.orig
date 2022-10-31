@@ -160,7 +160,11 @@ namespace Poker
 
         public bool FinPartie()
         {
+<<<<<<< HEAD
             return false;
+=======
+            
+>>>>>>> b92ef4a26e1e21a7ae607ca921aa7d4c9dd4f0a9
         }
 
         public void AfficherCarte(Tour leTour)
