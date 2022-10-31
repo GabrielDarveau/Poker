@@ -130,6 +130,7 @@ namespace Poker
                 MaMise = Argent;
                 Argent = 0;
                 AllIn = true;
+                Tour.derniereMise = MaMise;
             }
             else
             {

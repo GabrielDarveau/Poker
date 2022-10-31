@@ -13,7 +13,6 @@ namespace Poker
         int IndiceJoueurCourrant { get; set; }
         public Paquet LePaquet { get; private set; }
         public Tour TourActuel { get; private set; } = new Tour();
-        int EtatTour { get; set; }
 
         //Constructeur
         public Partie(Joueur[] lesJoueurs)
@@ -76,9 +75,9 @@ namespace Poker
                     for (int i = 0; i < joueurs.Length; i++)
                     {
                         //les blinds ne misent pas pour commencer
-                        if (!(TourActuel.EtatTour == 1 && (i == TourActuel.smallBlind || i == TourActuel.bigBlind)))
+                        if (!(TourActuel.debut && ((i+1) == TourActuel.smallBlind || (i+1) == TourActuel.bigBlind)))
                         {
-                            if (joueurs[i].Actif)
+                            if (joueurs[i].Actif && !TourActuel.FinMises(this.joueurs))
                             {
                                 // Afficher les cartes communes, les mises et l'argent restant des joueurs
                                 AfficherJeu();
@@ -90,10 +89,14 @@ namespace Poker
                                 joueurs[i].ChoisirAction();
                             }
                         }
+
+                        if(i > 1)
+                        {
+                            TourActuel.debut = false;
+                        }
                     }
 
-
-                } while (TourActuel.JoueursActifs(this.joueurs) && TourActuel.FinMises(this.joueurs)); // Les joueurs misent encore
+                } while (TourActuel.JoueursActifs(this.joueurs) && !TourActuel.FinMises(this.joueurs)); // Les joueurs misent encore
 
             } while (TourActuel.EtatTour < 4 && TourActuel.JoueursActifs(this.joueurs)); // Toutes les cartes ne sont pas révélés ou deux personnes misent encore
 
@@ -108,7 +111,7 @@ namespace Poker
 
             List<Joueur> joueursActifs = new List<Joueur>();
 
-            foreach (Joueur j in joueursActifs)
+            foreach (Joueur j in joueurs)
             {
                 if (j.Actif)
                 {

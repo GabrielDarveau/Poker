@@ -10,12 +10,13 @@ namespace Poker
     {
         //Attributs
         public Carte[] carteCommunes { get; set; } = new Carte[5];
-        public int EtatTour { get; private set; }
+        public int EtatTour { get; private set; } = 0;
         static public int Pot{ get; set; }
         static public int SidePot { get; set; }
         static public int derniereMise;
         public int smallBlind { get; private set; } = 0;
         public int bigBlind { get; private set; } = 1;
+        public bool debut { get; set; } = true;
         //Constructeur
         public Tour()
         {
@@ -30,6 +31,8 @@ namespace Poker
 
         public void ResetTour(Partie laPartie)
         {
+            debut = true;
+
             for (int i = 0; i < 4; i++)
             {
                 laPartie.joueurs[i].Actif = true;
@@ -42,7 +45,6 @@ namespace Poker
                 carteCommunes[i].Visible = false;
             }
 
-            derniereMise = 0;
             SidePot = 0;
 
             if (bigBlind == 3)
