@@ -69,7 +69,7 @@ namespace Poker
             Random random = new Random();
             for (int i = 0; i < cartes.Length; i++)
             {
-                int j = random.Next(i, cartes.Length); 
+                int j = random.Next(i, cartes.Length);
                 var temp = cartes[i];
                 cartes[i] = cartes[j];
                 cartes[j] = temp;

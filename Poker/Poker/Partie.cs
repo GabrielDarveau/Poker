@@ -128,32 +128,44 @@ namespace Poker
         {
             Console.Clear();
             Console.WriteLine("*** État de la partie ***");
-            Console.WriteLine("\nCarte visible \t Carte visible \t Carte visible \t Carte non visible \t Carte non visible");
-            Console.WriteLine("Les mises actuelles:");
+            AfficherCarte(TourActuel);
+            Console.WriteLine("\n\nLes mises actuelles:");
             for(int i = 0; i < 4; i++)
             {
-                Console.WriteLine("Mise joueur {0}: {1:C}", i+1, joueurs[i].MaMise);
+                Console.WriteLine("Mise joueur {0}: {1:C}", joueurs[i].Pseudo, joueurs[i].MaMise);
             }
+            Console.WriteLine();
             for (int i = 0; i < 4; i++)
             {
-                Console.WriteLine("Argent restant du joueur {0}: {1:C}", i+1, joueurs[i].Argent);
+                Console.WriteLine("Argent restant du joueur {0}: {1:C}", joueurs[i].Pseudo, joueurs[i].Argent);
             }
+            Console.WriteLine();
         }
         //Récupérer l'argent, sert à donner l'argent au gagnant
         public void UpdateGagnant(Joueur j)
         {
-
+            j.Argent = Tour.Pot;
         }
 
         public bool FinPartie()
         {
-
+            
         }
 
-        //public void AfficherCarte(Tour leTour)
-        //{
-
-        //}
+        public void AfficherCarte(Tour leTour)
+        {
+            for(int i = 0; i < 5; i++)
+            {
+                if (leTour.carteCommunes[i].Visible)
+                {
+                    Console.Write(leTour.carteCommunes[i].AfficherCarte()+" ");
+                }
+                else
+                {
+                    Console.Write("Carte non visible ");
+                }
+            }
+        }
         //Modifie le tour pour dire si nous sommes rendu à l'étape distribuer les cartes, de retourner les cartes, de déterminer qui est le gagnant
         public void UpdateEtatTour()
         {
