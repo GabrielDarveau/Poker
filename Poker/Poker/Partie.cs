@@ -132,11 +132,11 @@ namespace Poker
             Console.WriteLine("Les mises actuelles:");
             for(int i = 0; i < 4; i++)
             {
-                Console.WriteLine("Mise joueur {0}: {1:C}", i, joueurs[i].MaMise);
+                Console.WriteLine("Mise joueur {0}: {1:C}", i+1, joueurs[i].MaMise);
             }
             for (int i = 0; i < 4; i++)
             {
-                Console.WriteLine("Argent restant du joueur {0}: {1:C}", i, joueurs[i].Argent);
+                Console.WriteLine("Argent restant du joueur {0}: {1:C}", i+1, joueurs[i].Argent);
             }
         }
         //Récupérer l'argent, sert à donner l'argent au gagnant
