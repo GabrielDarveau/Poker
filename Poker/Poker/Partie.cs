@@ -158,12 +158,27 @@ namespace Poker
         //Récupérer l'argent, sert à donner l'argent au gagnant
         public void UpdateGagnant(Joueur j)
         {
-            j.Argent = Tour.Pot;
+            j.Argent = j.Argent + Tour.Pot;
         }
 
         public bool FinPartie()
         {
-            return false;
+            bool verif = false;
+            string rep;
+            do
+            {
+                Console.WriteLine("Voulez-vous continuer ? O/N");
+                rep = Console.ReadLine().ToUpper();
+                if(rep == "O")
+                {
+                    return true;
+                }
+                else if(rep == "N")
+                {
+                    return false;
+                }
+            } while (!(rep == "O" && rep == "N"));
+            return verif;
         }
 
         public void AfficherCarte(Tour leTour)
