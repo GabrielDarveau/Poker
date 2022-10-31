@@ -84,13 +84,13 @@ namespace Poker
             do
             {
                 Console.WriteLine("~~~~ Choisissez une action ~~~~");
-                if (Tour.derniereMise > MaMise && Argent > 0)
+                if (Tour.derniereMise == MaMise)
                 {
-                    Console.WriteLine("A) Fold \t B) Raise \t C) Call");
+                    Console.WriteLine("A) Fold \t B) Raise \t C) Check");
                 }
                 else
                 {
-                    Console.WriteLine("A) Fold \t B) Raise \t C) Check");
+                    Console.WriteLine("A) Fold \t B) Raise \t C) Call");
                 }
 
                 verif = char.TryParse(Console.ReadLine().ToUpper(), out choix);

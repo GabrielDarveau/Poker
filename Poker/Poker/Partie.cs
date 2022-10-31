@@ -73,19 +73,22 @@ namespace Poker
 
                 do
                 {
-                    foreach (Joueur j in this.joueurs)
+                    for (int i = 0; i < joueurs.Length; i++)
                     {
-                        if (j.Actif)
+                        //les blinds ne misent pas pour commencer
+                        if (!(TourActuel.EtatTour == 1 && (i == TourActuel.smallBlind || i == TourActuel.bigBlind)))
                         {
-                            // Afficher les cartes communes, les mises et l'argent restant des joueurs
-                            AfficherJeu();
+                            if (joueurs[i].Actif)
+                            {
+                                // Afficher les cartes communes, les mises et l'argent restant des joueurs
+                                AfficherJeu();
 
-                            // Afficher les cartes du joueur
-                            j.AfficherMain();
+                                // Afficher les cartes du joueur
+                                joueurs[i].AfficherMain();
 
-                            // Prendre mise
-                            j.ChoisirAction();
-
+                                // Prendre mise
+                                joueurs[i].ChoisirAction();
+                            }
                         }
                     }
 
@@ -120,8 +123,16 @@ namespace Poker
 
         public Joueur GetGagnant(List<Joueur> joueursActifs)
         {
-            Random rnd = new Random();
-            return joueursActifs[rnd.Next(joueursActifs.Count)];
+            int gagnant;
+            bool verif;
+
+            do
+            {
+                Console.Write("Qui a gagné?: ");
+                verif = int.TryParse(Console.ReadLine(), out gagnant);
+            } while (!verif || gagnant > joueursActifs.Count() || gagnant < 0);
+            
+            return joueursActifs[gagnant];
         }
 
         public void AfficherJeu()
@@ -147,7 +158,7 @@ namespace Poker
 
         public bool FinPartie()
         {
-
+            return false;
         }
 
         //public void AfficherCarte(Tour leTour)
