@@ -19,7 +19,7 @@ namespace Poker
             {
                 for (int j = 0; j < 13; j++)
                 {
-                    cartes[index] = new Carte((Couleur)i, (Valeur)j);
+                    cartes[index] = new Carte((Sorte)i, (Valeur)j);
                     index++;
                 }
             }
@@ -52,7 +52,7 @@ namespace Poker
             {
                 for (int j = 0; j < 13; j++)
                 {
-                    cartes[index] = new Carte((Couleur)i, (Valeur)j);
+                    cartes[index] = new Carte((Sorte)i, (Valeur)j);
                     index++;
                 }
             }

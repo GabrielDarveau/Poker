@@ -35,6 +35,7 @@ namespace Poker
             {
                 do
                 {
+                    Console.Clear();
                     Console.Write("Entrer le nom du joueur "+(i + 1)+": ");
                     nom = Console.ReadLine();
 

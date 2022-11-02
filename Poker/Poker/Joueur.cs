@@ -83,7 +83,8 @@ namespace Poker
             char choix;
             do
             {
-                Console.WriteLine("~~~~ Choisissez une action ~~~~");
+                Console.WriteLine();
+                Console.WriteLine("~~~~~~~~ Choisissez une action ~~~~~~~~");
                 if (Tour.derniereMise == MaMise)
                 {
                     Console.WriteLine("A) Fold \t B) Raise \t C) Check");
@@ -116,9 +117,13 @@ namespace Poker
             }
         }
 
-        public void AfficherMain()
+        public void AfficherMain(int j)
         {
-            Console.WriteLine("Cartes de " + Pseudo + ": " + MaMain.cartes[0].AfficherCarte() + " et " + MaMain.cartes[1].AfficherCarte());
+            int pos;
+            pos =  (12 * j) + 27;
+            Console.WriteLine("~~~~ Cartes de " + Pseudo +" ~~~~");
+            MaMain.cartes[0].AfficherCarte(0, pos);
+            MaMain.cartes[1].AfficherCarte(1, pos);
         }
 
         public void Blind(int blind)

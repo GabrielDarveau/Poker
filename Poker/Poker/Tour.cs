@@ -45,6 +45,14 @@ namespace Poker
                 carteCommunes[i].Visible = false;
             }
 
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 2; j++)
+                {
+                    laPartie.joueurs[i].MaMain.cartes[j].Visible = true;
+                }
+            }
+
             SidePot = 0;
 
             if (bigBlind == 3)
@@ -66,11 +74,9 @@ namespace Poker
             }
         }
 
-        public bool JoueursActifs(Joueur[] joueurs)
+        public int JoueursActifs(Joueur[] joueurs)
         {
-            bool sontActifs = true;
             int nbJoueursA = 0;
-
 
             foreach (Joueur j in joueurs)
             {
@@ -80,10 +86,10 @@ namespace Poker
                 }
             }
 
-            return nbJoueursA > 1;
+            return nbJoueursA;
         }
 
-        public bool FinMises(Joueur[] joueurs)
+        public bool FinMises(Joueur[] joueurs, int joueursAyantJoue)
         {
             bool fin = true;
             int premiereMiseA = 0;
@@ -95,7 +101,7 @@ namespace Poker
                     premiereMiseA = joueurs[i].MaMise;
                 }
 
-                if (joueurs[i].MaMise != premiereMiseA && joueurs[i].Actif)
+                if ((joueurs[i].MaMise != premiereMiseA && joueurs[i].Actif) || joueursAyantJoue < JoueursActifs(joueurs))
                 {
                     return false;
                 }
