@@ -91,9 +91,9 @@ namespace Poker
                     }
                     depart = 0;
 
-                } while (TourActuel.JoueursActifs(this.joueurs) < 2 && !TourActuel.FinMises(this.joueurs, joueursAyantJoue)); // Les joueurs misent encore
+                } while (TourActuel.JoueursActifs(this.joueurs) >= 2 && !TourActuel.FinMises(this.joueurs, joueursAyantJoue)); // Les joueurs misent encore
 
-            } while (TourActuel.EtatTour < 4 && TourActuel.JoueursActifs(this.joueurs) < 2); // Toutes les cartes ne sont pas révélés ou deux personnes misent encore
+            } while (TourActuel.EtatTour < 4 && TourActuel.JoueursActifs(this.joueurs) >= 2); // Toutes les cartes ne sont pas révélés ou deux personnes misent encore
 
             // Montrer les cartes
             AfficherJeu();
