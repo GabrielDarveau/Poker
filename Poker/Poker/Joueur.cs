@@ -55,7 +55,7 @@ namespace Poker
             bool verif = false;
             int montant;
 
-            if (Argent <= Tour.derniereMise)
+            if (Argent < Tour.derniereMise - MaMise)
             {
                 Console.WriteLine("Vous ne pouvez pas relancer");
                 ChoisirAction();
