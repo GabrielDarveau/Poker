@@ -121,7 +121,7 @@ namespace Poker
         {
             int pos;
             pos =  (12 * j) + 27;
-            Console.WriteLine("~~~~ Cartes de " + Pseudo +" ~~~~");
+            Console.WriteLine("~~~ Cartes de " + Pseudo +" ~~~");
             MaMain.cartes[0].AfficherCarte(0, pos);
             MaMain.cartes[1].AfficherCarte(1, pos);
         }

@@ -142,7 +142,7 @@ namespace Poker
             Console.WriteLine("\n~~~~ Mises actuelles ~~~~");
             for(int i = 0; i < 4; i++)
             {
-                Console.WriteLine("Mise de {0}: {1:C}", joueurs[i].Pseudo, joueurs[i].MaMise);
+                Console.WriteLine("Mise de {0}: {1:C} {2}", joueurs[i].Pseudo, joueurs[i].MaMise, joueurs[i].Actif ? "" : "\tCouché");
             }
             Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~");
             Console.WriteLine();
