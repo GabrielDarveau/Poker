@@ -32,8 +32,8 @@ namespace Poker
             if (Argent < Tour.derniereMise)
             {
                 Tour.Pot = Tour.Pot + Argent;
-                Tour.SidePot = Argent;
-                MaMise = Argent;
+                MaMise = MaMise + Argent;
+                Tour.SidePot = Tour.derniereMise - MaMise;
                 Argent = 0;
                 AllIn = true;
             }
@@ -120,7 +120,7 @@ namespace Poker
         public void AfficherMain(int j)
         {
             int pos;
-            pos =  (12 * j) + 27;
+            pos =  (12 * j) + 28;
             Console.WriteLine("~~~ Cartes de " + Pseudo +" ~~~");
             MaMain.cartes[0].AfficherCarte(0, pos);
             MaMain.cartes[1].AfficherCarte(1, pos);

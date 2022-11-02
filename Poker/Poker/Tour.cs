@@ -14,8 +14,8 @@ namespace Poker
         static public int Pot{ get; set; }
         static public int SidePot { get; set; }
         static public int derniereMise;
-        public int smallBlind { get; private set; } = 0;
-        public int bigBlind { get; private set; } = 1;
+        public int smallBlind { get; private set; } = 1;
+        public int bigBlind { get; private set; } = 2;
         public bool debut { get; set; } = true;
         //Constructeur
         public Tour()
@@ -35,7 +35,14 @@ namespace Poker
 
             for (int i = 0; i < 4; i++)
             {
-                laPartie.joueurs[i].Actif = true;
+                if (laPartie.joueurs[i].Argent <= 0)
+                {
+                    laPartie.joueurs[i].Actif = false;
+                }
+                else
+                {
+                    laPartie.joueurs[i].Actif = true;
+                }
             }
 
             EtatTour = 0;
@@ -56,23 +63,24 @@ namespace Poker
             Pot = 0;
             SidePot = 0;
 
-            if (bigBlind == 3)
-            {
-                bigBlind = 0;
-            }
-            else
-            {
-                bigBlind++;
-            }
-
-            if (smallBlind == 3)
-            {
-                smallBlind = 0;
-            }
-            else
+            do
             {
                 smallBlind++;
-            }
+                if (smallBlind == 5)
+                {
+                    smallBlind = 1;
+                }
+            } while (!laPartie.joueurs[smallBlind - 1].Actif );
+
+            do
+            {
+                bigBlind++;
+                if (bigBlind == 5)
+                {
+                    bigBlind = 1;
+                }
+            } while (!laPartie.joueurs[bigBlind - 1].Actif || smallBlind == bigBlind);
+
         }
 
         public int JoueursActifs(Joueur[] joueurs)
@@ -81,7 +89,7 @@ namespace Poker
 
             foreach (Joueur j in joueurs)
             {
-                if (j.Actif)
+                if (j.Actif && !j.AllIn)
                 {
                     nbJoueursA++;
                 }
@@ -97,7 +105,7 @@ namespace Poker
 
             for (int i = 0; i < 4; i++)
             {
-                if (i == 0)
+                if (premiereMiseA == 0 && joueurs[i].Actif)
                 {
                     premiereMiseA = joueurs[i].MaMise;
                 }

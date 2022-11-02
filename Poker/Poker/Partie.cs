@@ -32,9 +32,6 @@ namespace Poker
                 joueurs[i].ResetJoueur();
             }
 
-            joueurs[TourActuel.smallBlind].Blind(2);
-            joueurs[TourActuel.bigBlind].Blind(4);
-
             // Distribuer les cartes aux joueurs
             foreach (Joueur j in this.joueurs)
             {
@@ -46,6 +43,10 @@ namespace Poker
 
             // reseter le tour
             TourActuel.ResetTour(this);
+
+            //distribuer les blinds
+            joueurs[TourActuel.smallBlind - 1].Blind(2);
+            joueurs[TourActuel.bigBlind - 1].Blind(4);
 
             int depart = TourActuel.bigBlind;
             
@@ -76,7 +77,7 @@ namespace Poker
                 {
                     for (int i = depart; i < joueurs.Length; i++)
                     {
-                        if (joueurs[i].Actif && !TourActuel.FinMises(this.joueurs, joueursAyantJoue))
+                        if (joueurs[i].Actif && !TourActuel.FinMises(this.joueurs, joueursAyantJoue) && !joueurs[i].AllIn)
                         {
                             // Afficher les cartes communes, les mises et l'argent restant des joueurs
                             AfficherJeu();
@@ -143,7 +144,7 @@ namespace Poker
             Console.WriteLine("\n~~~~ Mises actuelles ~~~~");
             for(int i = 0; i < 4; i++)
             {
-                Console.WriteLine("Mise de {0}: {1:C} {2}", joueurs[i].Pseudo, joueurs[i].MaMise, joueurs[i].Actif ? "" : "\tCouché");
+                Console.WriteLine("Mise de {0}: {1:C} {2} {3}", joueurs[i].Pseudo, joueurs[i].MaMise, joueurs[i].Actif ? "" : "\tCouché", joueurs[i].AllIn ? "\tAll in" : "");
             }
             Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~");
             Console.WriteLine();
@@ -154,16 +155,22 @@ namespace Poker
             Console.WriteLine();
 
             Console.WriteLine("Pot: {0:C}", Tour.Pot);
+            if (Tour.SidePot >0)
+            {
+                Console.WriteLine("Side Pot: {0:C}", Tour.SidePot);
+            }
             Console.WriteLine();
         }
         //Récupérer l'argent, sert à donner l'argent au gagnant
         public void UpdateGagnant(Joueur j)
         {
-            j.Argent = j.Argent + Tour.Pot;
+            bool side = j.MaMise > Tour.Pot / TourActuel.JoueursActifs(this.joueurs);
+            j.Argent = j.Argent + Tour.Pot + (side ? Tour.SidePot : 0);
         }
 
         public bool FinPartie()
         {
+            // faire condition de fin partie si tout le monde a 0$ sinon boucle infinie
             bool verif = false;
             string rep;
             do
