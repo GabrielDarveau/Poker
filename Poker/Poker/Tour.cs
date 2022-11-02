@@ -53,6 +53,7 @@ namespace Poker
                 }
             }
 
+            Pot = 0;
             SidePot = 0;
 
             if (bigBlind == 3)

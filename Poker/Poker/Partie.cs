@@ -130,7 +130,8 @@ namespace Poker
                 Console.Write("Qui a gagné?: ");
                 verif = int.TryParse(Console.ReadLine(), out gagnant);
             } while (!verif || gagnant > joueursActifs.Count() || gagnant < 0);
-            
+            gagnant--;
+
             return joueursActifs[gagnant];
         }
 
