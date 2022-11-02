@@ -124,8 +124,9 @@ namespace Poker
 
             do
             {
-                Console.Write("Qui a gagné?: ");
+                Console.Write("Qui a gagné? Joueur de 1 à 4: ");
                 verif = int.TryParse(Console.ReadLine(), out gagnant);
+                gagnant--;
             } while (!verif || gagnant > joueursActifs.Count() || gagnant < 0);
             
             return joueursActifs[gagnant];
