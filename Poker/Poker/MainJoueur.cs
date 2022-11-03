@@ -19,7 +19,7 @@ namespace Poker
 
         }
 
-        private Carte[] ChoisirCartes(Carte[] cartesCommunes)
+        private Carte[] ChoisirCartes(Carte[] cartesCommunes, string pseudo)
         {
             bool verif;
             int carte;
@@ -38,19 +38,21 @@ namespace Poker
                 cartesCommunes[i].AfficherCarte(i, 2);
             }
 
-            Console.WriteLine("\n~~~~ Vos cartes ~~~~");
-            cartes[0].AfficherCarte(0, 10);
-            cartes[1].AfficherCarte(1, 10);
+            Console.WriteLine("\n~~~~ Cartes de "+pseudo+" ~~~~");
+            cartes[0].AfficherCarte(0, 13);
+            cartes[1].AfficherCarte(1, 13);
 
             for (int i = 0; i < 3; i++)
             {
                 do
                 {
-                    Console.Write("Choisir une carte commune(1-5) pour composer une main(5 cartes) avec vos cartes: ");
+                    Console.Write("Choisir une "+(i + 1)+"eme carte commune(1-5) pour composer une main(5 cartes) avec vos deux cartes: ");
                     verif = int.TryParse(Console.ReadLine(), out carte);
                     carte--;
-                } while (!verif || carte < 0 || carte > 6 || !cartesCommunes[carte].Visible);
+                } while (!verif || carte < 0 || carte > 4 || !cartesCommunes[carte].Visible);
+
                 cartesChoisies[i] = cartesCommunes[carte];
+                cartesCommunes[carte].Visible = false;
             }
 
             cartesChoisies[3] = cartes[0];
@@ -59,9 +61,9 @@ namespace Poker
             return cartesChoisies;
         }
 
-        public int CalculerForce(Carte[] cartesCommunes)
+        public int CalculerForce(Carte[] cartesCommunes, string pseudo)
         {
-            Carte[] mesCartes = ChoisirCartes(cartesCommunes);
+            Carte[] mesCartes = ChoisirCartes(cartesCommunes, pseudo);
 
             if (IsRoyalFlush(mesCartes))
             {
@@ -128,15 +130,68 @@ namespace Poker
 
         private bool IsRoyalFlush(Carte[] mesCartes)
         {
-            return false;
+            high = 0;
+            Sorte PremiereSorte = Sorte.Carreau;
+            Carte varTemp;
+
+            for (int i = 0; i <= mesCartes.Length - 1; i++)
+            {
+                for (int j = i + 1; j < mesCartes.Length; j++)
+                {
+                    if (mesCartes[i].MaValeur > mesCartes[j].MaValeur)
+                    {
+                        varTemp = mesCartes[i];
+                        mesCartes[i] = mesCartes[j];
+                        mesCartes[j] = varTemp;
+                    }
+                }
+            }
+
+            for (int i = 0; i < 4; i++)
+            {
+                if ((int)mesCartes[i].MaSorte != (int)mesCartes[i + 1].MaSorte)
+                {
+                    return false;
+                }
+            }
+
+            for (int i = 0; i < 4; i++)
+            {
+                if ((int)mesCartes[i].MaValeur != (int)mesCartes[i + 1].MaValeur + 1)
+                {
+                    return false;
+                }
+            }
+            // a finir
+            for (int i = 0; i < 5; i++)
+            {
+                if ((int)mesCartes[i].MaValeur > high)
+                {
+                    high = (int)mesCartes[i].MaValeur;
+                }
+            }
+
+            return true;
         }
 
         private bool IsStraightFlush(Carte[] mesCartes)
         {
             high = 0;
             Sorte PremiereSorte = Sorte.Carreau;
-            bool isStraightFlush = true;
-            Array.Sort(mesCartes);
+            Carte varTemp;
+
+            for (int i = 0; i <= mesCartes.Length - 1; i++)
+            {
+                for (int j = i + 1; j < mesCartes.Length; j++)
+                {
+                    if (mesCartes[i].MaValeur > mesCartes[j].MaValeur)
+                    {
+                        varTemp = mesCartes[i];
+                        mesCartes[i] = mesCartes[j];
+                        mesCartes[j] = varTemp;
+                    }
+                }
+            }
 
             for (int i = 0; i < 4; i++)
             {
@@ -154,19 +209,15 @@ namespace Poker
                 }
             }
 
-
-            if (isStraightFlush)
+            for (int i = 0; i < 5; i++)
             {
-                for (int i = 0; i < 5; i++)
+                if ((int)mesCartes[i].MaValeur > high)
                 {
-                    if ((int)mesCartes[i].MaValeur > high)
-                    {
-                        high = (int)mesCartes[i].MaValeur;
-                    }
+                    high = (int)mesCartes[i].MaValeur;
                 }
             }
 
-            return isStraightFlush;
+            return true;
         }
 
         private bool IsFourOfAKind(Carte[] mesCartes)
@@ -220,7 +271,39 @@ namespace Poker
 
         private bool IsStraight(Carte[] mesCartes)
         {
-            return false;
+            high = 0;
+            Carte varTemp;
+
+            for (int i = 0; i <= mesCartes.Length - 1; i++)
+            {
+                for (int j = i + 1; j < mesCartes.Length; j++)
+                {
+                    if (mesCartes[i].MaValeur > mesCartes[j].MaValeur)
+                    {
+                        varTemp = mesCartes[i];
+                        mesCartes[i] = mesCartes[j];
+                        mesCartes[j] = varTemp;
+                    }
+                }
+            }
+
+            for (int i = 0; i < 4; i++)
+            {
+                if ((int)mesCartes[i].MaValeur != (int)mesCartes[i + 1].MaValeur + 1)
+                {
+                    return false;
+                }
+            }
+
+            for (int i = 0; i < 5; i++)
+            {
+                if ((int)mesCartes[i].MaValeur > high)
+                {
+                    high = (int)mesCartes[i].MaValeur;
+                }
+            }
+
+            return true;
         }
 
         private bool IsThreeOfAKind(Carte[] mesCartes)

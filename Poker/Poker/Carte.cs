@@ -10,7 +10,7 @@ namespace Poker
 {
     enum Valeur
     {
-        deux =2,
+        deux,
         trois,
         quatre,
         cinq,

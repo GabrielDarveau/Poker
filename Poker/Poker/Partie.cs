@@ -156,7 +156,7 @@ namespace Poker
                 {
                     for (int i = 0; i < joueursActifs.Count(); i++)
                     {
-                        force = joueursActifs[i].MaMain.CalculerForce(TourActuel.carteCommunes);
+                        force = joueursActifs[i].MaMain.CalculerForce(TourActuel.carteCommunes, joueursActifs[i].Pseudo);
                         if (force > joueursActifs[meilleureForce].MaMain.Force)
                         {
                             meilleureForce = i;
@@ -277,6 +277,7 @@ namespace Poker
                 Console.Clear();
                 Console.WriteLine("Félicitations "+leGagnant.Pseudo+", vous avez remporté la partie!!!");
                 Console.WriteLine("Votre montant final est de {0:C}",leGagnant.Argent);
+                Console.WriteLine();
                 Console.Write("Appuyer sur une touche pour arrêter le jeu...");
                 Console.ReadKey();
 
