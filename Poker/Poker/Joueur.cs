@@ -31,17 +31,17 @@ namespace Poker
         {
             if (Argent < Tour.derniereMise)
             {
-                Tour.Pot = Tour.Pot + Argent;
                 MaMise = MaMise + Argent;
                 Tour.SidePot = Tour.derniereMise - MaMise;
+                Tour.Pot = Tour.Pot + Argent - Tour.SidePot;
                 Argent = 0;
                 AllIn = true;
             }
             else
             {
                 Argent = Argent - (Tour.derniereMise - MaMise);
+                Tour.Pot = Tour.Pot + (Tour.derniereMise - MaMise);
                 MaMise = Tour.derniereMise;
-                Tour.Pot = Tour.Pot + Tour.derniereMise;
             }
         }
 

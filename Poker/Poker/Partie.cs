@@ -119,6 +119,7 @@ namespace Poker
             // Déterminer le gagnant
             UpdateGagnant(GetGagnant(joueursActifs));
 
+            LePaquet.Reinitialiser();
         }
 
         public Joueur GetGagnant(List<Joueur> joueursActifs)
@@ -164,28 +165,65 @@ namespace Poker
         //Récupérer l'argent, sert à donner l'argent au gagnant
         public void UpdateGagnant(Joueur j)
         {
-            bool side = j.MaMise > Tour.Pot / TourActuel.JoueursActifs(this.joueurs);
-            j.Argent = j.Argent + Tour.Pot + (side ? Tour.SidePot : 0);
+            bool side = false;
+            int joueursActifs = TourActuel.JoueursActifs(this.joueurs);
+            if (joueursActifs >0)
+            {
+                if (side = j.MaMise > Tour.Pot / TourActuel.JoueursActifs(this.joueurs))
+                {
+                    j.Argent = j.Argent + Tour.Pot + Tour.SidePot;
+                }
+                else
+                {
+                    j.Argent = j.Argent + Tour.Pot;
+                }
+            }
+
         }
 
         public bool FinPartie()
         {
             // faire condition de fin partie si tout le monde a 0$ sinon boucle infinie
             bool verif = false;
+            bool isFin = false;
+            Joueur gagnant = null;
             string rep;
+            int argentWin = 0;
+
             do
             {
                 Console.WriteLine("Voulez-vous continuer ? O/N");
                 rep = Console.ReadLine().ToUpper();
-                if(rep == "O")
-                {
-                    return true;
-                }
-                else if(rep == "N")
-                {
-                    return false;
-                }
             } while (!(rep == "O" && rep == "N"));
+
+            foreach (Joueur j in joueurs)
+            {
+                if (j.Argent == 400)
+                {
+                    isFin = true;
+                }
+
+                if (j.Argent >= argentWin)
+                {
+                    gagnant = j;
+                }
+            }
+
+            if (rep == "O" && !isFin)
+            {
+                return true;
+            }
+            else if (rep == "N" || isFin)
+            {
+                Console.Clear();
+                Console.WriteLine("Félicitation "+gagnant.Pseudo+" vous avez remporté la partie!!");
+                Console.WriteLine("Vous avez remporté "+gagnant.Argent);
+                Console.Write("Appuyer sur une touche pour arrêter le jeu...");
+                Console.ReadKey();
+
+                return false;
+            }
+
             return verif;
         }
 

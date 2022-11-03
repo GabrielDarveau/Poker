@@ -33,6 +33,8 @@ namespace Poker
         {
             debut = true;
 
+            laPartie.LePaquet.Reinitialiser();
+
             for (int i = 0; i < 4; i++)
             {
                 if (laPartie.joueurs[i].Argent <= 0)
