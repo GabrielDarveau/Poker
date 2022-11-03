@@ -14,6 +14,8 @@ namespace Poker
         public Paquet LePaquet { get; private set; }
         public Tour TourActuel { get; private set; } = new Tour();
 
+        public Joueur LeGagnant { get; private set; }
+
         //Constructeur
         public Partie(Joueur[] lesJoueurs)
         {
@@ -117,7 +119,8 @@ namespace Poker
             }
 
             // Déterminer le gagnant
-            UpdateGagnant(GetGagnant(joueursActifs));
+            LeGagnant = GetGagnant(joueursActifs);
+            UpdateGagnant(LeGagnant);
 
             LePaquet.Reinitialiser();
         }
@@ -167,7 +170,7 @@ namespace Poker
         {
             bool side = false;
             int joueursActifs = TourActuel.JoueursActifs(this.joueurs);
-            if (joueursActifs >0)
+            if (joueursActifs > 0)
             {
                 if (side = j.MaMise > Tour.Pot / TourActuel.JoueursActifs(this.joueurs))
                 {
@@ -178,34 +181,35 @@ namespace Poker
                     j.Argent = j.Argent + Tour.Pot;
                 }
             }
+            else if(joueursActifs == 0 && j.AllIn)
+            {
+                j.Argent = j.Argent + Tour.Pot + Tour.SidePot;
+            }
+            else
+            {
+                j.Argent = j.Argent + Tour.Pot;
+            }
 
         }
 
-        public bool FinPartie()
+        public bool FinPartie(Joueur leGagnant)
         {
             // faire condition de fin partie si tout le monde a 0$ sinon boucle infinie
             bool verif = false;
             bool isFin = false;
-            Joueur gagnant = null;
             string rep;
-            int argentWin = 0;
 
             do
             {
                 Console.WriteLine("Voulez-vous continuer ? O/N");
                 rep = Console.ReadLine().ToUpper();
-            } while (!(rep == "O" && rep == "N"));
+            } while (rep != "O" && rep != "N");
 
             foreach (Joueur j in joueurs)
             {
                 if (j.Argent == 400)
                 {
                     isFin = true;
-                }
-
-                if (j.Argent >= argentWin)
-                {
-                    gagnant = j;
                 }
             }
 
@@ -216,8 +220,8 @@ namespace Poker
             else if (rep == "N" || isFin)
             {
                 Console.Clear();
-                Console.WriteLine("Félicitation "+gagnant.Pseudo+" vous avez remporté la partie!!");
-                Console.WriteLine("Vous avez remporté "+gagnant.Argent);
+                Console.WriteLine("Félicitations "+leGagnant.Pseudo+", vous avez remporté la partie!!!");
+                Console.WriteLine("Votre montant final est de {0:C}",leGagnant.Argent);
                 Console.Write("Appuyer sur une touche pour arrêter le jeu...");
                 Console.ReadKey();
 

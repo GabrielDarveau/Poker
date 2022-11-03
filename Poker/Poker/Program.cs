@@ -21,7 +21,7 @@ namespace Poker
             do
             {
                 laPartie.JouerTour();
-            } while (laPartie.FinPartie()); // Tous les joueurs veulent continuer
+            } while (laPartie.FinPartie(laPartie.LeGagnant)); // Tous les joueurs veulent continuer
 
             // Partie terminée afficher résultats
 
