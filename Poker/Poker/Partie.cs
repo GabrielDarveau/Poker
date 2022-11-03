@@ -125,14 +125,69 @@ namespace Poker
         public Joueur GetGagnant(List<Joueur> joueursActifs)
         {
             int gagnant;
+            int force;
+            int meilleureForce = 0; //index du joueur
+            int meilleureForceEgale = 0; //index du joueur
+            int high;
+            string rep;
             bool verif;
 
             do
             {
-                Console.Write("Qui a gagné?: ");
-                verif = int.TryParse(Console.ReadLine(), out gagnant);
-            } while (!verif || gagnant > joueursActifs.Count() || gagnant < 0);
-            gagnant--;
+                Console.WriteLine("Voulez-vous choisir le gagnant manuelement ? O/N");
+                rep = Console.ReadLine().ToUpper();
+            } while (!(rep == "O" || rep == "N"));
+
+            if (rep == "O")
+            {
+                do
+                {
+                    Console.Write("Qui a gagné?: ");
+                    verif = int.TryParse(Console.ReadLine(), out gagnant);
+                } while (!verif || gagnant > joueursActifs.Count() || gagnant < 0);
+                gagnant--;
+            }
+            else
+            {
+                if (joueursActifs.Count() > 1)
+                {
+                    for (int i = 0; i < joueursActifs.Count(); i++)
+                    {
+                        force = joueursActifs[i].MaMain.CalculerForce(TourActuel.carteCommunes);
+                        if (force > joueursActifs[meilleureForce].MaMain.Force)
+                        {
+                            meilleureForce = i;
+                        }
+                        else
+                        {
+                            if (force == joueursActifs[meilleureForce].MaMain.Force)
+                            {
+                                meilleureForceEgale = i;
+                            }
+                        }
+                    }
+
+                    if (joueursActifs[meilleureForceEgale].MaMain.Force > 0)
+                    {
+                        if (joueursActifs[meilleureForce].MaMain.high > joueursActifs[meilleureForceEgale].MaMain.high)
+                        {
+                            gagnant = meilleureForce;
+                        }
+                        else
+                        {
+                            gagnant = meilleureForceEgale;
+                        }
+                    }
+                    else
+                    {
+                        gagnant = meilleureForce;
+                    }
+                }
+                else
+                {
+                    gagnant = 0;
+                }
+            }
 
             return joueursActifs[gagnant];
         }

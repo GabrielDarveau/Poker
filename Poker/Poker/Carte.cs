@@ -10,7 +10,7 @@ namespace Poker
 {
     enum Valeur
     {
-        deux,
+        deux =2,
         trois,
         quatre,
         cinq,
@@ -36,8 +36,8 @@ namespace Poker
     internal class Carte
     {
         //Variables
-        Sorte MaSorte;
-        Valeur MaValeur;
+        public Sorte MaSorte { get; private set; }
+        public Valeur MaValeur { get; private set; }
         public bool Visible { get; set; }
 
         //Constructeur
