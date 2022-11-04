@@ -13,3 +13,5 @@ Usage de l'application de Poker
     ou grâce au programme qui vérifiera les possibilités de victoire de chaque joueur (pas complet). L'argent sera ensuite distribué au gagnant.
 11- Il sera demandé aux joueurs s'ils veulent continuer de jouer ou s'ils veulent arrêter. Lors de l'arrêt, le pseudonyme du gagnant, ainsi que son argent seront affichés.
 12- Fin de l'exécution.
+
+Application de Nathan Morasse et Gabriel Darveau
