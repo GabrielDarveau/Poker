@@ -180,14 +180,14 @@ namespace Poker
                         }
                         else
                         {
-                            if (force == joueursActifs[meilleureForce].MaMain.Force)
+                            if (force == joueursActifs[meilleureForce].MaMain.Force && i > 0)
                             {
                                 meilleureForceEgale = i;
                             }
                         }
                     }
 
-                    if (joueursActifs[meilleureForceEgale].MaMain.Force > 0)
+                    if (meilleureForceEgale > 0)
                     {
                         if (joueursActifs[meilleureForce].MaMain.high > joueursActifs[meilleureForceEgale].MaMain.high)
                         {
@@ -202,6 +202,8 @@ namespace Poker
                     {
                         gagnant = meilleureForce;
                     }
+
+
                 }
             }
             else
