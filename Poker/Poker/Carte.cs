@@ -8,7 +8,7 @@ using System.Xml.Linq;
 
 namespace Poker
 {
-    enum Valeur
+    public enum Valeur
     {
         deux,
         trois,
@@ -25,7 +25,7 @@ namespace Poker
         A
     }
 
-    enum Sorte
+    public enum Sorte
     {
         Coeur,
         Pique,
@@ -33,12 +33,12 @@ namespace Poker
         Treffle
     }
 
-    internal class Carte
+    public class Carte
     {
         //Variables
-        public Sorte MaSorte { get; private set; }
-        public Valeur MaValeur { get; private set; }
-        public bool Visible { get; set; }
+        public Sorte MaSorte;
+        public Valeur MaValeur;
+        public bool Visible;
 
         //Constructeur
         public Carte(Sorte Sorte, Valeur valeur)

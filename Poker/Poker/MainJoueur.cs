@@ -146,7 +146,7 @@ namespace Poker
             }
         }
 
-        private bool IsStraightFlush(Carte[] mesCartes)
+        public bool IsStraightFlush(Carte[] mesCartes)
         {
             high = 0;
             Carte varTemp;
