@@ -149,7 +149,7 @@ namespace Poker
             {
                 do
                 {
-                    Console.Write("Voulez-vous choisir le gagnant manuelement ? O/N: ");
+                    Console.Write("Voulez-vous choisir le gagnant manuellement ? O/N: ");
                     rep = Console.ReadLine().ToUpper();
                 } while (!(rep == "O" || rep == "N"));
                 Console.WriteLine();
