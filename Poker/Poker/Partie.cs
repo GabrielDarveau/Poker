@@ -98,6 +98,11 @@ namespace Poker
 
             } while (TourActuel.EtatTour < 4 && TourActuel.JoueursActifs(this.joueurs) >= 2); // Toutes les cartes ne sont pas révélés ou deux personnes misent encore
 
+            if (joueurs[0].AllIn && joueurs[1].AllIn && joueurs[2].AllIn && joueurs[2].AllIn)
+            {
+                TourActuel.carteCommunes[3].Visible = true;
+                TourActuel.carteCommunes[4].Visible = true;
+            }
             // Montrer les cartes
             AfficherJeu();
 
