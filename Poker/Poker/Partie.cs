@@ -144,25 +144,32 @@ namespace Poker
             string rep;
             bool verif;
 
-            do
-            {
-                Console.WriteLine("Voulez-vous choisir le gagnant manuelement ? O/N");
-                rep = Console.ReadLine().ToUpper();
-            } while (!(rep == "O" || rep == "N"));
 
-            //  Choisir le gagnant manuellement
-            if (rep == "O")
+            if (joueursActifs.Count() > 1) // Déterminer le gagnant
             {
                 do
                 {
-                    Console.Write("Qui a gagné?: ");
-                    verif = int.TryParse(Console.ReadLine(), out gagnant);
-                } while (!verif || gagnant > joueursActifs.Count() || gagnant < 1);
-                gagnant--;
-            }
-            else 
-            {
-                if (joueursActifs.Count() > 1) // Déterminer le gagnant
+                    Console.Write("Voulez-vous choisir le gagnant manuelement ? O/N: ");
+                    rep = Console.ReadLine().ToUpper();
+                } while (!(rep == "O" || rep == "N"));
+                Console.WriteLine();
+
+                if (rep == "O") //  Choisir le gagnant manuellement
+                {
+                    do
+                    {
+                        for (int i = 0; i < joueursActifs.Count(); i++)
+                        {
+                            Console.Write((i + 1)+") " + joueursActifs[i].Pseudo+"\t");
+                        }
+                        Console.WriteLine();
+
+                        Console.Write("Qui a gagné?: ");
+                        verif = int.TryParse(Console.ReadLine(), out gagnant);
+                    } while (!verif || gagnant > joueursActifs.Count() || gagnant < 1);
+                    gagnant--;
+                }
+                else
                 {
                     for (int i = 0; i < joueursActifs.Count(); i++)
                     {
@@ -196,11 +203,12 @@ namespace Poker
                         gagnant = meilleureForce;
                     }
                 }
-                else
-                {
-                    gagnant = 0;
-                }
             }
+            else
+            {
+                gagnant = 0;
+            }
+                
 
             return joueursActifs[gagnant];
         }

@@ -146,7 +146,7 @@ namespace Poker
             }
         }
 
-        private bool IsStraightFlush(Carte[] mesCartes)
+        public bool IsStraightFlush(Carte[] mesCartes)
         {
             high = 0;
             Carte varTemp;
@@ -177,7 +177,7 @@ namespace Poker
             // détermine si les cartes sont en suite
             for (int i = 0; i < 4; i++)
             {
-                if ((int)mesCartes[i].MaValeur != (int)mesCartes[i + 1].MaValeur + 1)
+                if ((int)mesCartes[i].MaValeur != (int)mesCartes[i + 1].MaValeur - 1)
                 {
                     return false;
                 }
@@ -195,19 +195,102 @@ namespace Poker
             return true;
         }
 
-        private bool IsFourOfAKind(Carte[] mesCartes)
+        public bool IsFourOfAKind(Carte[] mesCartes)
         {
-            // pas encore implémenté
+            bool fourOAK = true;
+            high = 0;
+            Carte varTemp;
+
+            // Trie les cartes
+            for (int i = 0; i <= mesCartes.Length - 1; i++)
+            {
+                for (int j = i + 1; j < mesCartes.Length; j++)
+                {
+                    if (mesCartes[i].MaValeur > mesCartes[j].MaValeur)
+                    {
+                        varTemp = mesCartes[i];
+                        mesCartes[i] = mesCartes[j];
+                        mesCartes[j] = varTemp;
+                    }
+                }
+            }
+
+            for (int i = 0; i < 3; i++)
+            {
+                if (mesCartes[i].MaValeur != mesCartes[i + 1].MaValeur)
+                {
+                    fourOAK = false;
+                }
+                else
+                {
+                    high = (int)mesCartes[i].MaValeur;
+                }
+            }
+
+            if (!fourOAK)
+            {
+                fourOAK = true;
+                for (int i = 1; i < 4; i++)
+                {
+                    if (mesCartes[i].MaValeur != mesCartes[i + 1].MaValeur)
+                    {
+                        fourOAK = false;
+                    }
+                    else
+                    {
+                        high = (int)mesCartes[i].MaValeur;
+                    }
+                }
+            }
+
+            if (!fourOAK)
+            {
+                high = 0;
+            }
+            return fourOAK;
+        }
+
+        public bool IsFullHouse(Carte[] mesCartes)
+        {
+            high = 0;
+            Carte varTemp;
+
+            // Trie les cartes
+            for (int i = 0; i <= mesCartes.Length - 1; i++)
+            {
+                for (int j = i + 1; j < mesCartes.Length; j++)
+                {
+                    if (mesCartes[i].MaValeur > mesCartes[j].MaValeur)
+                    {
+                        varTemp = mesCartes[i];
+                        mesCartes[i] = mesCartes[j];
+                        mesCartes[j] = varTemp;
+                    }
+                }
+            }
+
+            List<Carte> pair = new List<Carte>();
+            pair = mesCartes.ToList();
+
+            for (int i = 1; i < 3; i++)
+            {
+                if (mesCartes[i].MaValeur == mesCartes[i - 1].MaValeur && mesCartes[i].MaValeur == mesCartes[i + 1].MaValeur)
+                {
+                    high = (int)mesCartes[i].MaValeur;
+
+                    pair.RemoveAll(c => (int)c.MaValeur == high);
+
+                    if (pair[0].MaValeur == pair[1].MaValeur)
+                    {
+                        return true;
+                    }
+                }
+            }
+
             return false;
         }
 
-        private bool IsFullHouse(Carte[] mesCartes)
-        {
-            // pas encore implémenté
-            return false;
-        }
-
-        private bool IsFlush(Carte[] mesCartes)
+        public bool IsFlush(Carte[] mesCartes)
         {
             high = 0;
 
@@ -232,7 +315,7 @@ namespace Poker
             return true;
         }
 
-        private bool IsStraight(Carte[] mesCartes)
+        public bool IsStraight(Carte[] mesCartes)
         {
             high = 0;
             Carte varTemp;
@@ -254,7 +337,7 @@ namespace Poker
             // détermine si toutes les cartes sont en ordre
             for (int i = 0; i < 4; i++)
             {
-                if ((int)mesCartes[i].MaValeur != (int)mesCartes[i + 1].MaValeur + 1)
+                if ((int)mesCartes[i].MaValeur != (int)mesCartes[i + 1].MaValeur - 1)
                 {
                     return false;
                 }
@@ -272,21 +355,112 @@ namespace Poker
             return true;
         }
 
-        private bool IsThreeOfAKind(Carte[] mesCartes)
+        public bool IsThreeOfAKind(Carte[] mesCartes)
         {
-            // pas encore implémenté
+            high = 0;
+            Carte varTemp;
+
+            // Trie les cartes
+            for (int i = 0; i <= mesCartes.Length - 1; i++)
+            {
+                for (int j = i + 1; j < mesCartes.Length; j++)
+                {
+                    if (mesCartes[i].MaValeur > mesCartes[j].MaValeur)
+                    {
+                        varTemp = mesCartes[i];
+                        mesCartes[i] = mesCartes[j];
+                        mesCartes[j] = varTemp;
+                    }
+                }
+            }
+
+            for (int i = 1; i < 3; i++)
+            {
+                if (mesCartes[i].MaValeur == mesCartes[i - 1].MaValeur && mesCartes[i].MaValeur == mesCartes[i + 1].MaValeur)
+                {
+                    high = (int)mesCartes[i].MaValeur;
+                    return true;
+                }
+            }
+
             return false;
         }
 
-        private bool IsTwoPair(Carte[] mesCartes)
+        public bool IsTwoPair(Carte[] mesCartes)
         {
-            // pas encore implémenté
+            high = 0;
+            Carte varTemp;
+
+            // Trie les cartes
+            for (int i = 0; i <= mesCartes.Length - 1; i++)
+            {
+                for (int j = i + 1; j < mesCartes.Length; j++)
+                {
+                    if (mesCartes[i].MaValeur > mesCartes[j].MaValeur)
+                    {
+                        varTemp = mesCartes[i];
+                        mesCartes[i] = mesCartes[j];
+                        mesCartes[j] = varTemp;
+                    }
+                }
+            }
+
+            List<Carte> pair = new List<Carte>();
+            pair = mesCartes.ToList();
+
+            for (int i = 0; i < 4; i++)
+            {
+                if (mesCartes[i].MaValeur == mesCartes[i + 1].MaValeur)
+                {
+                    high = (int)mesCartes[i].MaValeur;
+
+                    pair.RemoveAll(c => (int)c.MaValeur == high);
+
+                    for (int j = 0; j < 2; j++)
+                    {
+                        if (pair[j].MaValeur == pair[j + 1].MaValeur)
+                        {
+                            if ((int)pair[j].MaValeur > high)
+                            {
+                                high = (int)pair[j].MaValeur;
+                            }
+                            return true;
+                        }
+                    }
+                }
+            }
+
             return false;
         }
 
-        private bool IsPair(Carte[] mesCartes)
+        public bool IsPair(Carte[] mesCartes)
         {
-            // pas encore implémenté
+            high = 0;
+            Carte varTemp;
+
+            // Trie les cartes
+            for (int i = 0; i <= mesCartes.Length - 1; i++)
+            {
+                for (int j = i + 1; j < mesCartes.Length; j++)
+                {
+                    if (mesCartes[i].MaValeur > mesCartes[j].MaValeur)
+                    {
+                        varTemp = mesCartes[i];
+                        mesCartes[i] = mesCartes[j];
+                        mesCartes[j] = varTemp;
+                    }
+                }
+            }
+
+            for (int i = 0; i < 4; i++)
+            {
+                if (mesCartes[i].MaValeur == mesCartes[i + 1].MaValeur)
+                {
+                    high = (int)mesCartes[i].MaValeur;
+                    return true;
+                }
+            }
+
             return false;
         }
 
