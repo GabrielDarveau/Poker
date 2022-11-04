@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Poker
 {
-    internal class MainJoueur
+    public class MainJoueur
     {
         //Attributs
         public Carte[] cartes { get; set; } = new Carte[2];
@@ -89,7 +89,7 @@ namespace Poker
             return 0;
         }
 
-        private bool IsRoyalFlush(Carte[] mesCartes)
+        public bool IsRoyalFlush(Carte[] mesCartes)
         {
             high = 0;
             Carte varTemp;
@@ -120,7 +120,7 @@ namespace Poker
             // détermine si les cartes sont en suite
             for (int i = 0; i < 4; i++)
             {
-                if ((int)mesCartes[i].MaValeur != (int)mesCartes[i + 1].MaValeur + 1)
+                if ((int)mesCartes[i].MaValeur != (int)mesCartes[i + 1].MaValeur - 1)
                 {
                     return false;
                 }
@@ -146,7 +146,7 @@ namespace Poker
             }
         }
 
-        public bool IsStraightFlush(Carte[] mesCartes)
+        private bool IsStraightFlush(Carte[] mesCartes)
         {
             high = 0;
             Carte varTemp;
