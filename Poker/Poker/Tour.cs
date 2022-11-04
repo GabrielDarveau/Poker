@@ -127,15 +127,16 @@ namespace Poker
         {
             bool fin = true;
             int premiereMiseA = 0;
+            int nbJoueursActifs = GetNbJoueursActifs(joueurs);
 
             for (int i = 0; i < 4; i++)
             {
-                if (premiereMiseA == 0 && joueurs[i].Actif)
+                if (premiereMiseA == 0 && joueurs[i].Actif && !joueurs[i].AllIn)
                 {
                     premiereMiseA = joueurs[i].MaMise;
                 }
 
-                if ((joueurs[i].MaMise != premiereMiseA && joueurs[i].Actif) || joueursAyantJoue < GetNbJoueursActifs(joueurs))
+                if ((joueurs[i].MaMise != premiereMiseA && joueurs[i].Actif && !joueurs[i].AllIn) || joueursAyantJoue < nbJoueursActifs)
                 {
                     return false;
                 }
