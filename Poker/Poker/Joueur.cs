@@ -27,6 +27,59 @@ namespace Poker
             Argent = 100;
         }
 
+        // Fonctions
+
+        /// <summary>
+        /// Permet au joueur de choisir les cartes à utiliser pour déterminer le gagnant et retourne 5 cartes
+        /// </summary>
+        /// <param name="cartesCommunes"></param>
+        /// <returns></returns>
+        public Carte[] ChoisirCartes(Carte[] cartesCommunes)
+        {
+            bool verif;
+            int carte;
+            Carte[] cartesChoisies = new Carte[5];
+
+            Console.Clear();
+
+            foreach (Carte c in cartesCommunes)
+            {
+                c.Visible = true;
+            }
+
+            Console.WriteLine("~~~~ Cartes communes ~~~~");
+            for (int i = 0; i < 5; i++)
+            {
+                cartesCommunes[i].AfficherCarte(i, 2);
+            }
+
+            Console.WriteLine("\n~~~~ Cartes de " + Pseudo + " ~~~~");
+            MaMain.cartes[0].AfficherCarte(0, 13);
+            MaMain.cartes[1].AfficherCarte(1, 13);
+
+            //  Choisir 3 cartes communes
+            for (int i = 0; i < 3; i++)
+            {
+                do
+                {
+                    Console.Write("Choisir une " + (i + 1) + "eme carte commune(1-5) pour composer une main(5 cartes) avec vos deux cartes: ");
+                    verif = int.TryParse(Console.ReadLine(), out carte);
+                    carte--;
+                } while (!verif || carte < 0 || carte > 4 || !cartesCommunes[carte].Visible);
+
+                cartesChoisies[i] = cartesCommunes[carte];
+                cartesCommunes[carte].Visible = false;
+            }
+
+            cartesChoisies[3] = MaMain.cartes[0];
+            cartesChoisies[4] = MaMain.cartes[1];
+
+            return cartesChoisies;
+        }
+
+        /// <summary>
+        /// Call
+        /// </summary>
         public void Call()
         {
             if (Argent < Tour.derniereMise)
@@ -45,11 +98,18 @@ namespace Poker
             }
         }
 
+
+        /// <summary>
+        /// Se coucher
+        /// </summary>
         public void Coucher()
         {
             Actif = false;
         }
 
+        /// <summary>
+        /// Raise
+        /// </summary>
         public void Raise()
         {
             bool verif = false;
@@ -77,6 +137,9 @@ namespace Poker
             }
         }
 
+        /// <summary>
+        /// Choisir une action valide
+        /// </summary>
         public void ChoisirAction()
         {
             bool verif;
@@ -85,6 +148,7 @@ namespace Poker
             {
                 Console.WriteLine();
                 Console.WriteLine("~~~~~~~~ Choisissez une action ~~~~~~~~");
+                // Si le dernier joueur a augmenter la mise il  aura l'option de call
                 if (Tour.derniereMise == MaMise)
                 {
                     Console.WriteLine("A) Fold \t B) Raise \t C) Check");
@@ -109,6 +173,7 @@ namespace Poker
                     Raise();
                     break;
                 case 'C':
+                    // check fait simplement passer au suivant sans miser
                     if (Tour.derniereMise > MaMise)
                     {
                         Call();
@@ -117,6 +182,10 @@ namespace Poker
             }
         }
 
+        /// <summary>
+        /// Affiche la main du joueur
+        /// </summary>
+        /// <param name="j"></param>
         public void AfficherMain(int j)
         {
             int pos;
@@ -126,6 +195,10 @@ namespace Poker
             MaMain.cartes[1].AfficherCarte(1, pos);
         }
 
+        /// <summary>
+        /// Assigne une mise forcée de 2$ ou 4$ au  joueur
+        /// </summary>
+        /// <param name="blind"></param>
         public void Blind(int blind)
         {
             if (Argent < blind)
@@ -146,6 +219,9 @@ namespace Poker
             }
         }
 
+        /// <summary>
+        /// Reset la mise du joueur et enlève le status all in
+        /// </summary>
         public void ResetJoueur()
         {
             MaMise = 0;

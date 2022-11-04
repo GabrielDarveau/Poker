@@ -14,6 +14,9 @@ namespace Poker
             Executer();
         }
 
+        /// <summary>
+        /// Execution du programme
+        /// </summary>
         static void Executer()
         {
             Partie laPartie = new Partie(CreerJoueur());
@@ -27,6 +30,10 @@ namespace Poker
 
         }
 
+        /// <summary>
+        /// Création des 4 joueurs
+        /// </summary>
+        /// <returns></returns>
         static Joueur[] CreerJoueur()
         {
             Joueur[] joueurs = new Joueur[4];

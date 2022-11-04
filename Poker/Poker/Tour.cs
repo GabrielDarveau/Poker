@@ -24,17 +24,26 @@ namespace Poker
         }
 
         //Fonctions
+
+        /// <summary>
+        /// incrémente l'état du tour
+        /// </summary>
         public void ChangerEtat()
         {
             EtatTour++;
         }
 
+        /// <summary>
+        /// incrémente certains attributs et réinitialise d'autres pour commencer un nouveau tour
+        /// </summary>
+        /// <param name="laPartie"></param>
         public void ResetTour(Partie laPartie)
         {
             debut = true;
 
             laPartie.LePaquet.Reinitialiser();
 
+            // rend les joueurs qui ont encore de l'argent actifs
             for (int i = 0; i < 4; i++)
             {
                 if (laPartie.joueurs[i].Argent <= 0)
@@ -49,6 +58,7 @@ namespace Poker
 
             EtatTour = 0;
 
+            // retourne les cartes communes
             for (int i = 0; i < 5; i++)
             {
                 carteCommunes[i].Visible = false;
@@ -62,9 +72,11 @@ namespace Poker
                 }
             }
 
+            //  remet le pot a zéro
             Pot = 0;
             SidePot = 0;
 
+            //  incrémente les blinds
             do
             {
                 smallBlind++;
@@ -85,7 +97,12 @@ namespace Poker
 
         }
 
-        public int JoueursActifs(Joueur[] joueurs)
+        /// <summary>
+        /// Retourne le nombre de joueurs actifs
+        /// </summary>
+        /// <param name="joueurs"></param>
+        /// <returns></returns>
+        public int GetNbJoueursActifs(Joueur[] joueurs)
         {
             int nbJoueursA = 0;
 
@@ -100,7 +117,13 @@ namespace Poker
             return nbJoueursA;
         }
 
-        public bool FinMises(Joueur[] joueurs, int joueursAyantJoue)
+        /// <summary>
+        /// détermine si les joueurs ont fini de miser
+        /// </summary>
+        /// <param name="joueurs"></param>
+        /// <param name="joueursAyantJoue"></param>
+        /// <returns></returns>
+        public bool IsFinMises(Joueur[] joueurs, int joueursAyantJoue)
         {
             bool fin = true;
             int premiereMiseA = 0;
@@ -112,7 +135,7 @@ namespace Poker
                     premiereMiseA = joueurs[i].MaMise;
                 }
 
-                if ((joueurs[i].MaMise != premiereMiseA && joueurs[i].Actif) || joueursAyantJoue < JoueursActifs(joueurs))
+                if ((joueurs[i].MaMise != premiereMiseA && joueurs[i].Actif) || joueursAyantJoue < GetNbJoueursActifs(joueurs))
                 {
                     return false;
                 }

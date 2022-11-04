@@ -48,12 +48,11 @@ namespace Poker
             Visible = false;
         }
 
-        //Fonctions
-        //public int  ComparerCarte(Carte carteAComparer)
-        //{
-
-        //}
-
+        /// <summary>
+        /// Affiche la carte selon la position ou elle doit etre appelé
+        /// </summary>
+        /// <param name="positionX"></param>
+        /// <param name="positionY"></param>
         public void AfficherCarte(int positionX, int positionY)
         {
             string v;

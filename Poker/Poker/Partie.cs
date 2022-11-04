@@ -10,10 +10,8 @@ namespace Poker
     {
         //Attributs
         public Joueur[] joueurs { get;  private set; } = new Joueur[4];
-        int IndiceJoueurCourrant { get; set; }
         public Paquet LePaquet { get; private set; }
         public Tour TourActuel { get; private set; } = new Tour();
-
         public Joueur LeGagnant { get; private set; }
 
         //Constructeur
@@ -79,7 +77,7 @@ namespace Poker
                 {
                     for (int i = depart; i < joueurs.Length; i++)
                     {
-                        if (joueurs[i].Actif && !TourActuel.FinMises(this.joueurs, joueursAyantJoue) && !joueurs[i].AllIn)
+                        if (joueurs[i].Actif && !TourActuel.IsFinMises(this.joueurs, joueursAyantJoue) && !joueurs[i].AllIn)
                         {
                             // Afficher les cartes communes, les mises et l'argent restant des joueurs
                             AfficherJeu();
@@ -94,25 +92,27 @@ namespace Poker
                     }
                     depart = 0;
 
-                } while (TourActuel.JoueursActifs(this.joueurs) >= 2 && !TourActuel.FinMises(this.joueurs, joueursAyantJoue)); // Les joueurs misent encore
+                } while (TourActuel.GetNbJoueursActifs(this.joueurs) >= 2 && !TourActuel.IsFinMises(this.joueurs, joueursAyantJoue)); // Les joueurs misent encore
 
-            } while (TourActuel.EtatTour < 4 && TourActuel.JoueursActifs(this.joueurs) >= 2); // Toutes les cartes ne sont pas révélés ou deux personnes misent encore
+            } while (TourActuel.EtatTour < 4 && TourActuel.GetNbJoueursActifs(this.joueurs) >= 2); // Toutes les cartes ne sont pas révélés ou deux personnes misent encore
 
             if (joueurs[0].AllIn && joueurs[1].AllIn && joueurs[2].AllIn && joueurs[2].AllIn)
             {
                 TourActuel.carteCommunes[3].Visible = true;
                 TourActuel.carteCommunes[4].Visible = true;
             }
+
             // Montrer les cartes
             AfficherJeu();
 
+            // afficher les main des joueurs
             for (int i = 0; i < 4; i++)
             {
                 joueurs[i].AfficherMain(i);
                 Console.WriteLine();
             }
             
-
+            // faire une liste de tous les joueurs acrifs (qui peuvent donc gagner)
             List<Joueur> joueursActifs = new List<Joueur>();
 
             foreach (Joueur j in joueurs)
@@ -130,13 +130,17 @@ namespace Poker
             LePaquet.Reinitialiser();
         }
 
+        /// <summary>
+        /// Détermine le gagnant parmi  une liste de joueurs
+        /// </summary>
+        /// <param name="joueursActifs"></param>
+        /// <returns></returns>
         public Joueur GetGagnant(List<Joueur> joueursActifs)
         {
             int gagnant;
             int force;
             int meilleureForce = 0; //index du joueur
             int meilleureForceEgale = 0; //index du joueur
-            int high;
             string rep;
             bool verif;
 
@@ -146,6 +150,7 @@ namespace Poker
                 rep = Console.ReadLine().ToUpper();
             } while (!(rep == "O" || rep == "N"));
 
+            //  Choisir le gagnant manuellement
             if (rep == "O")
             {
                 do
@@ -155,13 +160,13 @@ namespace Poker
                 } while (!verif || gagnant > joueursActifs.Count() || gagnant < 0);
                 gagnant--;
             }
-            else
+            else 
             {
-                if (joueursActifs.Count() > 1)
+                if (joueursActifs.Count() > 1) // Déterminer le gagnant
                 {
                     for (int i = 0; i < joueursActifs.Count(); i++)
                     {
-                        force = joueursActifs[i].MaMain.CalculerForce(TourActuel.carteCommunes, joueursActifs[i].Pseudo);
+                        force = joueursActifs[i].MaMain.CalculerForce(joueursActifs[i].ChoisirCartes(TourActuel.carteCommunes));
                         if (force > joueursActifs[meilleureForce].MaMain.Force)
                         {
                             meilleureForce = i;
@@ -200,6 +205,9 @@ namespace Poker
             return joueursActifs[gagnant];
         }
 
+        /// <summary>
+        /// Affiche le jeu
+        /// </summary>
         public void AfficherJeu()
         {
             Console.Clear();
@@ -225,14 +233,18 @@ namespace Poker
             }
             Console.WriteLine();
         }
-        //Récupérer l'argent, sert à donner l'argent au gagnant
+        
+        /// <summary>
+        /// Distibue l'argent au gagnant
+        /// </summary>
+        /// <param name="j"></param>
         public void UpdateGagnant(Joueur j)
         {
             bool side = false;
-            int joueursActifs = TourActuel.JoueursActifs(this.joueurs);
+            int joueursActifs = TourActuel.GetNbJoueursActifs(this.joueurs);
             if (joueursActifs > 0)
             {
-                if (side = j.MaMise > Tour.Pot / TourActuel.JoueursActifs(this.joueurs))
+                if (side = j.MaMise > Tour.Pot / TourActuel.GetNbJoueursActifs(this.joueurs))
                 {
                     j.Argent = j.Argent + Tour.Pot + Tour.SidePot;
                 }
@@ -252,6 +264,11 @@ namespace Poker
 
         }
 
+        /// <summary>
+        /// Affichage de fin de partie
+        /// </summary>
+        /// <param name="leGagnant"></param>
+        /// <returns></returns>
         public bool FinPartie(Joueur leGagnant)
         {
             // faire condition de fin partie si tout le monde a 0$ sinon boucle infinie
@@ -292,6 +309,10 @@ namespace Poker
             return verif;
         }
 
+        /// <summary>
+        /// Afficher les cartes communes
+        /// </summary>
+        /// <param name="leTour"></param>
         public void AfficherCarte(Tour leTour)
         {
             for(int i = 0; i < 5; i++)
@@ -299,11 +320,6 @@ namespace Poker
                 leTour.carteCommunes[i].AfficherCarte(i, 2);
 
             }
-        }
-        //Modifie le tour pour dire si nous sommes rendu à l'étape distribuer les cartes, de retourner les cartes, de déterminer qui est le gagnant
-        public void UpdateEtatTour()
-        {
-
         }
     }
 }
